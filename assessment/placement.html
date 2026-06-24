@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Placement Assessment</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/assessment/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">📝</div>
+      <div><h1>BLEULEARN</h1><p>Assessment Center</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → Placement Assessment</p>
+  <div class="hero">
+    <h1>Placement Assessment</h1>
+    <p>This assessment determines your starting level in Mathematics and Language Arts. Answer honestly. There are no wrong answers for placement.</p>
+  </div>
+  <div class="game-card" id="assessBox">
+    <div class="question-text" id="qtext">Press Start to begin.</div>
+    <div class="options-grid" id="opts"></div>
+    <div class="feedback-box hidden" id="fb"></div>
+    <div style="text-align:center;margin-top:16px;" id="controls">
+      <button class="btn-gold" onclick="start()">Start Assessment</button>
+    </div>
+  </div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+<script>
+const Qs=[
+  {t:"What is 4 × 7?",o:["21","24","28","32"],c:2,grade:2},
+  {t:"What is 144 ÷ 12?",o:["10","11","12","13"],c:2,grade:4},
+  {t:"Solve: 3x + 6 = 21",o:["x=4","x=5","x=6","x=7"],c:1,grade:6},
+  {t:"What is 15% of 240?",o:["30","36","42","48"],c:1,grade:7},
+  {t:"Simplify: (x² + 5x + 6) ÷ (x + 2)",o:["x+2","x+3","x+4","x+5"],c:1,grade:9},
+];
+let cur=0,correct=0;
+function start(){document.getElementById('controls').style.display='none';load();}
+function load(){
+  if(cur>=Qs.length){
+    const grade=correct>=4?"Grades 9-10":correct>=3?"Grades 7-8":correct>=2?"Grades 5-6":correct>=1?"Grades 3-4":"Grades K-2";
+    document.getElementById('qtext').innerHTML=`Assessment complete.<br><br>Recommended placement: <strong>${grade}</strong>`;
+    document.getElementById('opts').innerHTML='';
+    document.getElementById('fb').textContent='Report saved to your portfolio.';
+    document.getElementById('fb').className='feedback-box correct';
+    return;
+  }
+  const q=Qs[cur];
+  document.getElementById('qtext').textContent=q.t;
+  document.getElementById('opts').innerHTML=q.o.map((o,i)=>`<button class="option-btn" onclick="ans(${i})">${o}</button>`).join('');
+  document.getElementById('fb').className='feedback-box hidden';
+}
+function ans(sel){
+  document.querySelectorAll('.option-btn').forEach((b,i)=>{b.disabled=true;if(i===Qs[cur].c)b.classList.add('correct');else if(i===sel)b.classList.add('wrong');});
+  if(sel===Qs[cur].c){correct++;document.getElementById('fb').textContent='✅ Correct.';document.getElementById('fb').className='feedback-box correct';}
+  else{document.getElementById('fb').textContent='❌ Moving on.';document.getElementById('fb').className='feedback-box wrong';}
+  cur++;setTimeout(load,1200);
+}
+</script>
+</body>
+</html>

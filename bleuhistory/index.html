@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — The BleuHistory Book</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+  
+</head>
+<body>
+  <div class="container">
+    <div class="main-header">
+      <a href="/" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">🔷</div>
+        <div><h1>BLEULEARN</h1><p>12 Volumes · Grades 5-12</p></div>
+      </a>
+      <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+    </div>
+    <p class="breadcrumb"><a href="/">Home</a> → The BleuHistory Book</p>
+    <div class="hero">
+      <h1>The BleuHistory Book</h1>
+      <p>A sovereign K-12 history curriculum built entirely on documented primary sources accessible through public archives. Every claim is verified. Every correction is documented.</p>
+      <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+        <span class="tag tag-gold">12 Volumes</span>
+        <span class="tag" style="background:rgba(255,255,255,0.15);color:white;">Primary Sources Only</span>
+        <span class="tag" style="background:rgba(255,255,255,0.15);color:white;">Harkness Discussions</span>
+        <span class="tag" style="background:rgba(255,255,255,0.15);color:white;">Archive Assignments</span>
+      </div>
+    </div>
+    <p class="section-sub">The Four Questions</p>
+    <div class="grid-4" style="margin-bottom:28px;">
+      <div class="card text-center" style="background:var(--bleu-deep);color:white;"><div style="font-size:28px;">👤</div><h3>WHO</h3><p style="font-size:13px;opacity:0.8">created this document?</p></div>
+      <div class="card text-center" style="background:var(--gold);color:white;"><div style="font-size:28px;">📅</div><h3>WHEN</h3><p style="font-size:13px;opacity:0.8">was it created?</p></div>
+      <div class="card text-center" style="background:var(--teal);color:white;"><div style="font-size:28px;">📄</div><h3>WHAT</h3><p style="font-size:13px;opacity:0.8">does it say?</p></div>
+      <div class="card text-center" style="background:var(--forest);color:white;"><div style="font-size:28px;">❓</div><h3>WHY</h3><p style="font-size:13px;opacity:0.8">does it matter?</p></div>
+    </div>
+    <p class="section-sub">All 12 Volumes</p>
+    <div class="grid-2"><div class="card card-interactive" id="vol1" onclick="BleuLearn.showNotification('Volume 1: The African Origins of Humanity and Civilization — Grades 5-6', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 5-6</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">The African Origins of Humanity and Civilization</h3>
+            <p style="font-size:13px;color:var(--gray);">Lucy, Mansa Musa, Alfonso I, Great Zimbabwe, Swahili Coast</p>
+          </div>
+        </div>
+      </div><div class="card card-interactive" id="vol2" onclick="BleuLearn.showNotification('Volume 2: The First Peoples of the Americas — Grades 5-6', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 5-6</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">The First Peoples of the Americas</h3>
+            <p style="font-size:13px;color:var(--gray);">Monte Verde, Maya, Cahokia, Haudenosaunee, Powhatan Confederacy</p>
+          </div>
+        </div>
+      </div><div class="card card-interactive" id="vol3" onclick="BleuLearn.showNotification('Volume 3: Black Americans as Indigenous to the United States — Grades 6-7', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 6-7</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">Black Americans as Indigenous to the United States</h3>
+            <p style="font-size:13px;color:var(--gray);">Columbus's diary, Esteban Dorantes, Ancient DNA, Dawes Rolls $5 Indian fraud</p>
+          </div>
+        </div>
+      </div><div class="card card-interactive" id="vol4" onclick="BleuLearn.showNotification('Volume 4: The World Before Contact — Grades 6-7', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 6-7</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">The World Before Contact</h3>
+            <p style="font-size:13px;color:var(--gray);">Islamic Golden Age, Doctrine of Discovery, Papal Bulls, Johnson v. McIntosh</p>
+          </div>
+        </div>
+      </div><div class="card card-interactive" id="vol5" onclick="BleuLearn.showNotification('Volume 5: Global Slavery Systems and the Transatlantic Slave Trade — Grades 7-8', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 7-8</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">Global Slavery Systems and the Transatlantic Slave Trade</h3>
+            <p style="font-size:13px;color:var(--gray);">12.5 million transported, Middle Passage, Equiano, Zong massacre</p>
+          </div>
+        </div>
+      </div><div class="card card-interactive" id="vol6" onclick="BleuLearn.showNotification('Volume 6: The Confederacy: What the Documents Say — Grades 7-8', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">6</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 7-8</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">The Confederacy: What the Documents Say</h3>
+            <p style="font-size:13px;color:var(--gray);">Confederate declarations of secession in their own words, Lost Cause documented</p>
+          </div>
+        </div>
+      </div><div class="card card-interactive" id="vol7" onclick="BleuLearn.showNotification('Volume 7: Civil War and Reconstruction — Grades 7-8', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">7</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 7-8</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">Civil War and Reconstruction</h3>
+            <p style="font-size:13px;color:var(--gray);">Harriet Tubman's military command, 13th/14th/15th Amendments, Buffalo Soldiers, Stand Watie</p>
+          </div>
+        </div>
+      </div><div class="card card-interactive" id="vol8" onclick="BleuLearn.showNotification('Volume 8: The Second Betrayal: 1877-1930 — Grades 8-9', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">8</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 8-9</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">The Second Betrayal: 1877-1930</h3>
+            <p style="font-size:13px;color:var(--gray);">Jim Crow, Ida B. Wells, Tulsa Race Massacre, Chinese Exclusion, Mexican Repatriation</p>
+          </div>
+        </div>
+      </div><div class="card card-interactive" id="vol9" onclick="BleuLearn.showNotification('Volume 9: The New Deal, WWII, and the Road to Montgomery — Grades 8-9', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">9</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 8-9</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">The New Deal, WWII, and the Road to Montgomery</h3>
+            <p style="font-size:13px;color:var(--gray);">Double V, EO 9066, Zoot Suit Riots, Brown v. Board</p>
+          </div>
+        </div>
+      </div><div class="card card-interactive" id="vol10" onclick="BleuLearn.showNotification('Volume 10: The Civil Rights Movement: 1955-1968 — Grades 8-9', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">10</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 8-9</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">The Civil Rights Movement: 1955-1968</h3>
+            <p style="font-size:13px;color:var(--gray);">AIM, Chicano Movement, Young Lords, Stonewall, Marsha P. Johnson</p>
+          </div>
+        </div>
+      </div><div class="card card-interactive" id="vol11" onclick="BleuLearn.showNotification('Volume 11: From Voting Rights to Today — Grades 9-10', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">11</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 9-10</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">From Voting Rights to Today</h3>
+            <p style="font-size:13px;color:var(--gray);">Shelby County, Black Lives Matter, Standing Rock, H.R. 40</p>
+          </div>
+        </div>
+      </div><div class="card card-interactive" id="vol12" onclick="BleuLearn.showNotification('Volume 12: Black Women's History Across All Eras — Grades 9-12', 'info')">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <div style="background:var(--bleu-deep);color:var(--gold);font-family:var(--font-display);font-size:20px;font-weight:800;width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">12</div>
+          <div>
+            <span class="tag tag-light" style="margin-bottom:6px;">Grades 9-12</span>
+            <h3 style="font-family:var(--font-display);font-size:16px;margin-bottom:6px;">Black Women's History Across All Eras</h3>
+            <p style="font-size:13px;color:var(--gray);">Pauli Murray, Claudette Colvin, Two-Spirit traditions, Global Black women</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card card-interactive mt-24 text-center" style="background:var(--cream);" onclick="BleuLearn.chatWithAI('Ms. Scriptura', 'BleuHistory')">
+      <div style="font-size:52px;">📜</div>
+      <h3 style="font-family:var(--font-display);">Chat with Ms. Scriptura</h3>
+      <p style="color:var(--gray);">Your AI BleuHistory tutor. Ask about any primary source, any volume, any documented person.</p>
+      <button class="btn-primary" style="margin-top:16px;">Open AI Tutor</button>
+    </div>
+    <div class="site-footer">
+      <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — 
+      AvaBleu House HQ | BleuLearn Sovereign Curriculum | 2026<br>
+      <small><a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a> · 
+      <a href="/legal/attribution.html">Attribution</a></small>
+    </div>
+  </div>
+  <script src="/js/bleulearn.js"></script>
+  
+</body></html>

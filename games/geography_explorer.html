@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Geography Explorer</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/games/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">🌍</div>
+      <div><h1>BLEULEARN</h1><p>Games</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → Geography Explorer</p>
+  <div class="game-card">
+    <h2 style="font-family:var(--font-display);color:var(--bleu-deep);">🌍 Geography Explorer</h2>
+    <p style="color:var(--gray);">Documented geography: Indigenous territories, world capitals, trade routes. Every question is primary-source verified.</p>
+    <div class="question-text" id="qtext">Loading...</div>
+    <div class="options-grid" id="opts"></div>
+    <div class="feedback-box hidden" id="fb"></div>
+  </div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+<script>
+const Qs=[
+  {q:"Cahokia (c.1100 CE) was located near present-day:",opts:["Chicago","St. Louis","New Orleans","Memphis"],c:1,pts:15},
+  {q:"The Powhatan Confederacy's territory at European contact included present-day:",opts:["Massachusetts","Virginia (including Chesterfield County)","Georgia","North Carolina"],c:1,pts:15},
+  {q:"The Inca Road System covered approximately:",opts:["5,000 miles","15,000 miles","25,000 miles","50,000 miles"],c:2,pts:20},
+  {q:"Timbuktu, the center of Islamic scholarship in medieval West Africa, was located in present-day:",opts:["Nigeria","Ghana","Mali","Senegal"],c:2,pts:15},
+  {q:"The Standing Rock Sioux Tribe's 2016 protests concerned a pipeline threatening water in:",opts:["Montana","North Dakota/South Dakota","Wyoming","Minnesota"],c:1,pts:15},
+];
+let cur=0;
+function load(){
+  const q=Qs[cur];
+  document.getElementById('qtext').textContent=q.q;
+  document.getElementById('opts').innerHTML=q.opts.map((o,i)=>
+    `<button class="option-btn" onclick="check(${i})">${o}</button>`).join('');
+  document.getElementById('fb').className='feedback-box hidden';
+}
+function check(sel){
+  const q=Qs[cur];
+  document.querySelectorAll('.option-btn').forEach((b,i)=>{b.disabled=true;if(i===q.c)b.classList.add('correct');else if(i===sel&&sel!==q.c)b.classList.add('wrong');});
+  const fb=document.getElementById('fb');
+  if(sel===q.c){fb.textContent=`✅ Correct! +${q.pts} points`;fb.className='feedback-box correct';BleuLearn.addPoints(q.pts,'Geography Explorer');}
+  else{fb.textContent=`❌ Correct: ${q.opts[q.c]}`;fb.className='feedback-box wrong';}
+  if(cur+1<Qs.length)setTimeout(()=>{cur++;load();},1400);
+  else setTimeout(()=>{fb.textContent+=' 🎉 Complete! +25 bonus!';BleuLearn.addPoints(25,'Geography Explorer complete');},1400);
+}
+load();
+</script>
+</body>
+</html>

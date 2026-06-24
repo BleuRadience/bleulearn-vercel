@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Games</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">🎮</div>
+      <div><h1>BLEULEARN</h1><p>Practice Games</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → Games</p>
+  <div class="hero">
+    <h1>Practice Games</h1>
+    <p>Earn points while building documented skills. Every game is tied to a curriculum strand.</p>
+  </div>
+  <div class="grid-3">
+    <div class="card card-interactive" onclick="BleuLearn.goTo('/games/vocabulary_builder.html')">
+      <div style="font-size:48px;text-align:center;">📚</div>
+      <h3 style="font-family:var(--font-display);text-align:center;">Vocabulary Builder</h3>
+      <p style="color:var(--gray);text-align:center;">Language Arts — Primary Source vocabulary</p>
+      <button class="btn-primary" style="width:100%;margin-top:16px;">Play</button>
+    </div>
+    <div class="card card-interactive" onclick="BleuLearn.goTo('/games/math_facts.html')">
+      <div style="font-size:48px;text-align:center;">🔢</div>
+      <h3 style="font-family:var(--font-display);text-align:center;">Math Facts Master</h3>
+      <p style="color:var(--gray);text-align:center;">Mathematics — Singapore Math fluency</p>
+      <button class="btn-primary" style="width:100%;margin-top:16px;">Play</button>
+    </div>
+    <div class="card card-interactive" onclick="BleuLearn.goTo('/games/geography_explorer.html')">
+      <div style="font-size:48px;text-align:center;">🌍</div>
+      <h3 style="font-family:var(--font-display);text-align:center;">Geography Explorer</h3>
+      <p style="color:var(--gray);text-align:center;">Geography — Indigenous territories and world capitals</p>
+      <button class="btn-primary" style="width:100%;margin-top:16px;">Play</button>
+    </div>
+  </div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+
+</body>
+</html>

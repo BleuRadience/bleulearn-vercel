@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — AI Tutor Hub</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">🤖</div>
+      <div><h1>BLEULEARN</h1><p>Your AI Tutors</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → AI Tutor Hub</p>
+  <div class="hero">
+    <h1>🤖 AI Tutor Hub</h1>
+    <p>12 specialized AI tutors -- one for each curriculum strand. Every tutor operates under the VeriAbyss standard: all fact, no hallucination, primary sources only.</p>
+  </div>
+  <div class="card mb-24" style="background:var(--cream);">
+    <p class="section-sub">VeriAbyss Standard</p>
+    <p>BleuLearn AI tutors do not speculate, fabricate, or offer undocumented opinions. If a tutor cannot find a documented answer, it says so and directs you to the relevant archive. This is non-negotiable.</p>
+  </div>
+  <div class="grid-3" id="tutors"></div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+<script>
+const tutors = [
+  {n:"Prof. Polyglot",sub:"Mathematics",i:"🧮",desc:"Singapore Math. Bar models, CPA approach, algebraic thinking."},
+  {n:"Dr. Soul",sub:"Science",i:"🧬",desc:"Inquiry-based science. Evidence first, conclusions second."},
+  {n:"Ms. Scriptura",sub:"BleuHistory",i:"📜",desc:"Primary source literacy. Who? When? What? Why?"},
+  {n:"Ms. PolyNova",sub:"Language Arts",i:"✍️",desc:"Reading, writing, oral tradition, media literacy."},
+  {n:"Ms. Wealth",sub:"Financial Architecture",i:"💵",desc:"Budgeting, investing, racial wealth gap, generational wealth."},
+  {n:"Mr. Debate",sub:"Computer Science",i:"🤖",desc:"Coding, AI literacy, digital citizenship, ethics."},
+  {n:"Ms. Astoria",sub:"Geography",i:"🗺️",desc:"World geography, Indigenous territories, climate systems."},
+  {n:"Judge Logic",sub:"Civics",i:"⚖️",desc:"Government, voting rights, civic action, constitutional law."},
+  {n:"Coach Move",sub:"Health & Wellness",i:"🏃",desc:"Mental health, nutrition, movement, healthy relationships."},
+  {n:"Elder Speaks",sub:"Indigenous Studies",i:"🌿",desc:"Pre-colonial sovereignty through contemporary rights."},
+  {n:"Dr. Afrika",sub:"Black World Studies",i:"✊",desc:"Global Black history from Africa to the present."},
+  {n:"Prof. Merchant",sub:"Cooperative Economics",i:"🤝",desc:"Cooperative business, community economics, wealth building."},
+];
+document.getElementById('tutors').innerHTML = tutors.map(t=>
+  `<div class="card card-interactive" onclick="BleuLearn.chatWithAI('${t.n}','${t.sub}')">
+    <div style="font-size:48px;text-align:center;margin-bottom:12px;">${t.i}</div>
+    <h3 style="font-family:var(--font-display);text-align:center;">${t.n}</h3>
+    <span class="tag tag-navy" style="display:block;text-align:center;margin:6px auto;width:fit-content;">${t.sub}</span>
+    <p style="color:var(--gray);text-align:center;font-size:13px;margin-top:8px;">${t.desc}</p>
+    <button class="btn-primary" style="width:100%;margin-top:16px;">Chat with ${t.n}</button>
+  </div>`).join('');
+</script>
+</body>
+</html>

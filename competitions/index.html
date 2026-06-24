@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Class Competitions</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">🏆</div>
+      <div><h1>BLEULEARN</h1><p>Compete & Win</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → Class Competitions</p>
+  <div class="hero">
+    <h1>🏆 Class Competitions</h1>
+    <p>School-wide and class-level academic competitions based on documented achievement in BleuLearn curriculum strands.</p>
+  </div>
+  <div class="card card-navy mb-24">
+    <h3 style="color:var(--gold);font-family:var(--font-display);margin-bottom:20px;">🔥 Current Competition: BleuHistory Challenge</h3>
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;text-align:center;">
+      <div><p style="color:rgba(255,255,255,0.7);font-size:12px;">TEAM A</p><h2 style="color:white;font-size:36px;">Team Archive</h2><p style="color:var(--gold);font-size:28px;font-weight:800;">2,840 pts</p></div>
+      <div style="color:var(--gold);font-size:28px;font-weight:800;">VS</div>
+      <div><p style="color:rgba(255,255,255,0.7);font-size:12px;">TEAM B</p><h2 style="color:white;font-size:36px;">Team Primary</h2><p style="color:rgba(255,255,255,0.7);font-size:28px;font-weight:800;">2,450 pts</p></div>
+    </div>
+    <div style="margin-top:20px;"><div class="progress-bar"><div class="progress-fill" style="width:62%"></div></div></div>
+  </div>
+  <p class="section-sub">Leaderboard — Top Scholars</p>
+  <div class="card">
+    <table class="table-clean">
+      <thead><tr><th>Rank</th><th>Scholar</th><th>Points</th><th>Strand</th></tr></thead>
+      <tbody id="leaderboard"></tbody>
+    </table>
+  </div>
+  <div class="card mt-16">
+    <p class="section-sub">Upcoming Competitions</p>
+    <div class="grid-2">
+      <div class="card card-cream"><h3 style="font-family:var(--font-display);">Singapore Math Sprint</h3><p style="color:var(--gray);font-size:13px;">Bar model speed challenge. All grades. Starts next week.</p><span class="tag tag-teal">Math</span></div>
+      <div class="card card-cream"><h3 style="font-family:var(--font-display);">Primary Source Throwdown</h3><p style="color:var(--gray);font-size:13px;">Apply the four questions to ten documents in 20 minutes. Grades 6-12.</p><span class="tag tag-navy">BleuHistory</span></div>
+    </div>
+  </div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+<script>
+const lb = [
+  ["🥇","Scholar A","4,200","BleuHistory"],["🥈","Scholar B","3,850","Mathematics"],
+  ["🥉","Scholar C","3,600","Financial Architecture"],["4","Scholar D","3,200","Science"],
+  ["5","Scholar E","2,900","Indigenous Studies"],
+];
+document.getElementById('leaderboard').innerHTML = lb.map(r=>
+  `<tr><td>${r[0]}</td><td>${r[1]}</td><td style="color:var(--gold);font-weight:700;">⭐ ${r[2]}</td><td>${r[3]}</td></tr>`).join('');
+</script>
+</body>
+</html>

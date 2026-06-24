@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Assessment Center</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">📊</div>
+      <div><h1>BLEULEARN</h1><p>Evaluate & Place</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → Assessment Center</p>
+  <div class="hero">
+    <h1>📊 Assessment Center</h1>
+    <p>Placement, benchmark, and screening assessments. All assessments are curriculum-aligned and documented.</p>
+  </div>
+  <div class="grid-3">
+    <div class="card card-interactive" onclick="BleuLearn.goTo('/assessment/placement.html')">
+      <div style="font-size:48px;text-align:center;">📝</div>
+      <h3 style="font-family:var(--font-display);text-align:center;">Placement Assessment</h3>
+      <p style="color:var(--gray);text-align:center;font-size:13px;">Determine starting level in Mathematics and Language Arts.</p>
+      <button class="btn-primary" style="width:100%;margin-top:16px;">Begin Assessment</button>
+    </div>
+    <div class="card card-interactive" onclick="BleuLearn.goTo('/assessment/quarterly_benchmark.html')">
+      <div style="font-size:48px;text-align:center;">📈</div>
+      <h3 style="font-family:var(--font-display);text-align:center;">Quarterly Benchmark</h3>
+      <p style="color:var(--gray);text-align:center;font-size:13px;">End-of-quarter documented achievement benchmark.</p>
+      <button class="btn-primary" style="width:100%;margin-top:16px;">Begin Benchmark</button>
+    </div>
+    <div class="card card-interactive" onclick="BleuLearn.goTo('/assessment/learning_disability_screening.html')">
+      <div style="font-size:48px;text-align:center;">🔍</div>
+      <h3 style="font-family:var(--font-display);text-align:center;">Learning Difference Screening</h3>
+      <p style="color:var(--gray);text-align:center;font-size:13px;">Early identification screening. Not diagnostic. Refer to specialist if indicated.</p>
+      <button class="btn-primary" style="width:100%;margin-top:16px;">Begin Screening</button>
+    </div>
+  </div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+
+</body>
+</html>

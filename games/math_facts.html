@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Math Facts Master</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/games/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">🔢</div>
+      <div><h1>BLEULEARN</h1><p>Games</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → Math Facts Master</p>
+  <div class="game-card">
+    <h2 style="font-family:var(--font-display);color:var(--bleu-deep);">🔢 Math Facts Master</h2>
+    <p style="color:var(--gray);">Singapore Math fluency. Answer as fast as you can. Points for speed and accuracy.</p>
+    <div style="font-size:14px;color:var(--gray);margin:12px 0;">Score: <span id="score">0</span> · Streak: <span id="streak">0</span> 🔥</div>
+    <div class="question-text" id="qtext">Ready?</div>
+    <input type="number" id="ans" placeholder="Your answer" style="width:100%;padding:14px;font-size:20px;border:2px solid var(--bleu-deep);border-radius:12px;margin:16px 0;text-align:center;font-family:var(--font-body);" onkeydown="if(event.key==='Enter')check()">
+    <button class="btn-primary" style="width:100%;" onclick="check()">Submit</button>
+    <div class="feedback-box hidden" id="fb"></div>
+  </div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+<script>
+let score=0,streak=0,a=0,b=0,op='';
+function gen(){
+  const ops=['+','-','×'];
+  op=ops[Math.floor(Math.random()*ops.length)];
+  if(op==='+'){a=Math.floor(Math.random()*20)+1;b=Math.floor(Math.random()*20)+1;}
+  else if(op==='-'){a=Math.floor(Math.random()*20)+10;b=Math.floor(Math.random()*a)+1;}
+  else{a=Math.floor(Math.random()*12)+1;b=Math.floor(Math.random()*12)+1;}
+  document.getElementById('qtext').textContent=`${a} ${op} ${b} = ?`;
+  document.getElementById('ans').value='';
+  document.getElementById('ans').focus();
+  document.getElementById('fb').className='feedback-box hidden';
+}
+function correct(){if(op==='+')return a+b;if(op==='-')return a-b;return a*b;}
+function check(){
+  const v=parseInt(document.getElementById('ans').value);
+  const c=correct();
+  const fb=document.getElementById('fb');
+  if(v===c){score+=10;streak++;BleuLearn.addPoints(10,'Math Facts');fb.textContent=`✅ Correct! +10 pts`;fb.className='feedback-box correct';document.getElementById('score').textContent=score;document.getElementById('streak').textContent=streak;setTimeout(gen,800);}
+  else{streak=0;document.getElementById('streak').textContent=0;fb.textContent=`❌ Answer was ${c}`;fb.className='feedback-box wrong';setTimeout(gen,1200);}
+}
+gen();
+</script>
+</body>
+</html>

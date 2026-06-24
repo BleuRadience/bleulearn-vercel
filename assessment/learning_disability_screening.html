@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Learning Difference Screening</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/assessment/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">🔍</div>
+      <div><h1>BLEULEARN</h1><p>Assessment Center</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → Learning Difference Screening</p>
+  <div class="hero">
+    <h1>Learning Difference Screening</h1>
+    <p>Early identification tool. This is NOT a diagnosis. If screening indicates a potential learning difference, refer to a licensed educational psychologist or neuropsychologist for formal evaluation.</p>
+  </div>
+  <div class="card" style="background:var(--cream);">
+    <p class="section-sub">Important Notice</p>
+    <p>This screening tool is an early identification support only. AvaBleu House HQ does not diagnose learning disabilities. Results should be shared with a qualified specialist. Black children are documented as disproportionately misdiagnosed and over-referred for special education. This tool is designed to identify documented strengths and documented areas for support -- not to label.</p>
+  </div>
+  <div class="card mt-16">
+    <p class="section-sub">Screening Categories</p>
+    <div class="grid-2">
+      <div class="card card-cream"><h3>Reading & Phonological Processing</h3><p style="font-size:13px;color:var(--gray);">Associated with dyslexia. Administered by teacher.</p></div>
+      <div class="card card-cream"><h3>Working Memory & Processing Speed</h3><p style="font-size:13px;color:var(--gray);">Associated with ADHD and processing disorders.</p></div>
+      <div class="card card-cream"><h3>Mathematical Reasoning</h3><p style="font-size:13px;color:var(--gray);">Associated with dyscalculia.</p></div>
+      <div class="card card-cream"><h3>Written Expression</h3><p style="font-size:13px;color:var(--gray);">Associated with dysgraphia.</p></div>
+    </div>
+    <button class="btn-primary" style="margin-top:20px;" onclick="BleuLearn.showNotification('Screening must be administered by a certified teacher.','warning')">Begin Screening (Teacher Required)</button>
+  </div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+
+</body>
+</html>

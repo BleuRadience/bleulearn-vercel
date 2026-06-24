@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BleuLearn — Admin Panel</title>
+<link rel="stylesheet" href="/css/bleulearn.css">
+<style>
+  .panel-section{margin-bottom:24px;}
+  .panel-section h3{color:var(--bleu-deep);font-family:var(--font-display);margin-bottom:10px;}
+  input,select{padding:9px 12px;border:2px solid var(--light-gray);border-radius:8px;font-family:var(--font-body);margin-right:8px;margin-bottom:8px;}
+  .result-box{background:var(--cream);border-radius:8px;padding:12px;margin-top:8px;font-size:13px;font-family:monospace;word-break:break-all;display:none;}
+  #gate{display:none;text-align:center;padding:60px;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;"><div class="logo-icon">🛠️</div><div><h1>BLEULEARN</h1><p>Admin Panel</p></div></a>
+  </div>
+
+  <div id="gate"><p style="color:var(--gray);">This page requires an admin account. <a href="/login/">Sign in</a></p></div>
+
+  <div id="panelContent">
+    <div class="card panel-section">
+      <h3>🎫 Issue Invite Code</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:10px;">Generates a single-use, time-limited code for onboarding a new teacher or admin. Give the code directly to the person signing up.</p>
+      <select id="inviteRole"><option value="teacher">Teacher</option><option value="admin">Admin</option></select>
+      <input type="number" id="inviteHours" placeholder="Expires in hours (default 72)" style="width:200px;">
+      <button class="btn-primary" onclick="issueInvite()">Generate Code</button>
+      <div class="result-box" id="inviteResult"></div>
+    </div>
+
+    <div class="card panel-section">
+      <h3>👨‍👩‍👧 Link Family to Scholar</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:10px;">Once linked, the family account can view that scholar's points, attendance, benchmark scores, and gradebook (read-only).</p>
+      <input type="number" id="familyUserId" placeholder="Family account user ID">
+      <input type="number" id="scholarUserId" placeholder="Scholar account user ID">
+      <button class="btn-primary" onclick="linkFamily()">Create Link</button>
+      <div class="result-box" id="linkResult"></div>
+    </div>
+
+    <div class="card panel-section" style="border:2px solid var(--gold);">
+      <h3>🔍 AI-Assisted Review Queue (Mandatory Human Sign-Off)</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:10px;">Every placement assessment, Gifted calibration check-in, IEP evaluation, and curriculum gap finding gets an independent AI read of the documented evidence before anything becomes operative. <strong>Nothing here changes a scholar's track or status until you approve it below.</strong> If the AI disagrees with the submitted recommendation, or flags the evidence as vague or identity-adjacent rather than documented, you will see that here.</p>
+      <button class="btn-secondary" onclick="loadPendingReviews()">Load Pending Reviews</button>
+      <div id="pendingReviewsList" style="margin-top:12px;"></div>
+    </div>
+
+    <div class="card panel-section">
+      <h3>📊 Equity Analytics</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:10px;">This platform collects no demographic data anywhere. This report shows referrer-level patterns only -- a teacher whose Gifted/Bridge referral rate is a clear outlier relative to peers is a prompt for a documented conversation, not a conclusion.</p>
+      <button class="btn-secondary" onclick="loadEquityAnalytics()">Load Equity Report</button>
+      <div class="result-box" id="equityResult"></div>
+    </div>
+
+    <div class="card panel-section">
+      <h3>⏰ Overdue Reviews</h3>
+      <button class="btn-secondary" onclick="loadOverdueReviews()">Check Overdue Items</button>
+      <div class="result-box" id="overdueResult"></div>
+    </div>
+
+    <div class="card panel-section">
+      <h3>🆕 Transfer Student Intake</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:10px;">Step 1: record where they came from. Step 2: review each strand against the prior school's coverage and document the specific gap. Step 3: administer a diagnostic per strand below to set their actual placement.</p>
+      <div style="margin-bottom:12px;">
+        <input type="number" id="trScholarId" placeholder="Scholar user ID">
+        <input type="text" id="trSchoolName" placeholder="Prior school name" style="width:220px;">
+        <input type="text" id="trCurriculumNotes" placeholder="What curriculum/standards did they use?" style="width:320px;">
+        <button class="btn-primary" onclick="createTransferRecord()">Create Intake Record</button>
+      </div>
+      <div style="margin-bottom:12px;">
+        <input type="number" id="gapTransferId" placeholder="Transfer Record ID">
+        <input type="text" id="gapStrand" placeholder="Strand, e.g. Singapore Mathematics" style="width:200px;">
+        <input type="text" id="gapPriorCoverage" placeholder="What the prior school covered" style="width:240px;">
+        <br>
+        <input type="text" id="gapExpected" placeholder="What BleuLearn expects at this grade" style="width:300px;">
+        <select id="gapSeverity"><option value="minor">Minor</option><option value="significant">Significant</option><option value="none">None</option></select>
+        <br>
+        <input type="text" id="gapDocumented" placeholder="The specific documented gap (required)" style="width:400px;">
+        <input type="text" id="gapAction" placeholder="Recommended action" style="width:260px;">
+        <button class="btn-secondary" onclick="createGapFinding()">Record Gap Finding</button>
+      </div>
+      <div class="result-box" id="transferResult"></div>
+    </div>
+
+    <div class="card panel-section">
+      <h3>📊 Placement / Diagnostic / Gifted-Identification Assessment</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:10px;">One shared form for a transfer diagnostic, a Gifted identification assessment, or a general placement check. Recording an assessment here automatically updates the scholar's operative track for that strand.</p>
+      <input type="number" id="paScholarId" placeholder="Scholar user ID">
+      <input type="text" id="paStrand" placeholder="Strand" style="width:200px;">
+      <select id="paPurpose">
+        <option value="transfer_diagnostic">Transfer Diagnostic</option>
+        <option value="gifted_identification">Gifted Identification</option>
+        <option value="general_placement">General Placement</option>
+      </select>
+      <br>
+      <select id="paScoreLevel"><option value="1">1 - Beginning</option><option value="2">2 - Approaching</option><option value="3" selected>3 - Proficient</option><option value="4">4 - Advanced</option></select>
+      <select id="paTrack"><option value="bridge">Bridge</option><option value="grade_level" selected>Grade-Level</option><option value="gifted">Gifted</option></select>
+      <input type="number" id="paTransferRecordId" placeholder="Transfer Record ID (only if transfer diagnostic)" style="width:260px;">
+      <br>
+      <input type="text" id="paEvidence" placeholder="Documented evidence -- what was observed (required)" style="width:420px;">
+      <button class="btn-primary" onclick="createPlacementAssessment()">Record Assessment</button>
+      <div class="result-box" id="placementResult"></div>
+    </div>
+
+    <div class="card panel-section">
+      <h3>🎯 Gifted Program Calibration Check-In</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:10px;">Run this on the same cadence as the Quarterly Benchmark. "Extend Challenge" or "Reduce Challenge" automatically updates the scholar's track -- this is the actual mechanism that keeps a Gifted scholar challenged without overwhelming them.</p>
+      <input type="number" id="gcScholarId" placeholder="Scholar user ID">
+      <input type="text" id="gcStrand" placeholder="Strand" style="width:180px;">
+      <input type="text" id="gcQuarter" placeholder="Quarter, e.g. 2026-Q3" style="width:140px;">
+      <br>
+      <select id="gcRating"><option value="too_easy">Too Easy</option><option value="appropriate">Appropriate</option><option value="too_challenging">Too Challenging</option></select>
+      <select id="gcAction"><option value="extend_challenge">Extend Challenge</option><option value="maintain">Maintain</option><option value="reduce_challenge">Reduce Challenge</option></select>
+      <input type="text" id="gcEvidence" placeholder="Evidence (required) -- what specifically showed this" style="width:380px;">
+      <button class="btn-primary" onclick="recordGiftedCheckin()">Record Check-In</button>
+      <div class="result-box" id="giftedResult"></div>
+    </div>
+
+    <div class="card panel-section">
+      <h3>📋 Accommodation Plans (IEP / 504)</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:10px;">Creates a documented plan. Extended time automatically applies to that scholar's quiz attempts going forward -- the effective time limit is computed at the moment they start each quiz.</p>
+      <input type="number" id="accScholarId" placeholder="Scholar user ID">
+      <select id="accType"><option value="IEP">IEP</option><option value="504">504</option></select>
+      <input type="number" id="accMultiplier" placeholder="Time multiplier (e.g. 1.5)" step="0.1" min="1" style="width:200px;">
+      <input type="text" id="accNotes" placeholder="Notes (e.g. extended time on all timed assessments)" style="width:320px;">
+      <button class="btn-primary" onclick="createAccommodation()">Create Plan</button>
+      <div class="result-box" id="accResult"></div>
+      <hr style="margin:16px 0;border-color:var(--light-gray);">
+      <p style="font-size:13px;font-weight:700;color:var(--bleu-deep);margin-bottom:8px;">Instructional Evaluation (how to actually teach this scholar)</p>
+      <input type="number" id="iepPlanId" placeholder="Accommodation Plan ID">
+      <input type="text" id="iepArea" placeholder="Area assessed, e.g. Reading Comprehension" style="width:240px;">
+      <br>
+      <input type="text" id="iepPresentLevel" placeholder="Present level of performance (required)" style="width:380px;">
+      <br>
+      <input type="text" id="iepStrengths" placeholder="Documented strengths" style="width:280px;">
+      <input type="text" id="iepNeeds" placeholder="Documented needs" style="width:280px;">
+      <br>
+      <input type="text" id="iepStrategies" placeholder="Recommended strategies (required) -- e.g. chunk into 3 steps, visual schedule" style="width:420px;">
+      <button class="btn-secondary" onclick="createIepEvaluation()">Record Instructional Evaluation</button>
+      <div class="result-box" id="iepEvalResult"></div>
+    </div>
+
+    <div class="card panel-section">
+      <h3>🔁 Withdraw / Transfer a Scholar</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:10px;">Removes the scholar from the active roster and gradebook matrix without deleting their grade or attendance history. Re-enrolling them later (via the enrollments API) automatically restores active status.</p>
+      <input type="number" id="withdrawEnrollId" placeholder="Enrollment ID">
+      <select id="withdrawStatus"><option value="transferred_out">Transferred Out</option><option value="withdrawn">Withdrawn</option></select>
+      <input type="text" id="withdrawNotes" placeholder="Notes (e.g. moved to another district)" style="width:320px;">
+      <button class="btn-secondary" onclick="withdrawScholar()">Update Status</button>
+      <div class="result-box" id="withdrawResult"></div>
+    </div>
+
+    <div class="card panel-section">
+      <h3>🏅 Badges</h3>
+      <p style="font-size:13px;color:var(--gray);margin-bottom:10px;">Create a badge, then award it to a scholar. This is a real, database-backed achievement system -- separate from the decorative scholar-facing /badges/ showcase page, which does not yet pull from this system.</p>
+      <div style="margin-bottom:12px;">
+        <input type="text" id="badgeTitle" placeholder="Badge title, e.g. Documented Mastery">
+        <input type="text" id="badgeIcon" placeholder="Icon (emoji)" style="width:90px;">
+        <button class="btn-secondary" onclick="createBadge()">Create Badge</button>
+      </div>
+      <div>
+        <select id="awardBadgeId" style="min-width:220px;"></select>
+        <input type="number" id="awardUserId" placeholder="Scholar user ID">
+        <button class="btn-primary" onclick="awardBadge()">Award</button>
+      </div>
+      <div class="result-box" id="badgeResult"></div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/bleulearn.js"></script>
+<script>
+async function init() {
+  const user = await BleuLearn.getCurrentUser();
+  if (!user || user.role !== 'admin') {
+    document.getElementById('gate').style.display = 'block';
+    document.getElementById('panelContent').style.display = 'none';
+    return;
+  }
+  loadBadgeOptions();
+}
+
+function showResult(elId, data) {
+  const el = document.getElementById(elId);
+  el.style.display = 'block';
+  el.textContent = JSON.stringify(data, null, 2);
+}
+
+async function issueInvite() {
+  const role = document.getElementById('inviteRole').value;
+  const hours = document.getElementById('inviteHours').value;
+  const res = await fetch('/api/admin/invite-codes', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ role, expires_in_hours: hours ? Number(hours) : undefined })
+  });
+  showResult('inviteResult', await res.json());
+}
+
+async function linkFamily() {
+  const family_user_id = Number(document.getElementById('familyUserId').value);
+  const scholar_user_id = Number(document.getElementById('scholarUserId').value);
+  const res = await fetch('/api/admin/family-links', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ family_user_id, scholar_user_id })
+  });
+  showResult('linkResult', await res.json());
+}
+
+async function loadBadgeOptions() {
+  const res = await fetch('/api/badges');
+  const data = await res.json();
+  const sel = document.getElementById('awardBadgeId');
+  sel.innerHTML = (data.badges || []).map(b => `<option value="${Number(b.id)}">${BleuLearn.escapeHtml(b.icon || '')} ${BleuLearn.escapeHtml(b.title)}</option>`).join('');
+}
+
+async function createBadge() {
+  const title = document.getElementById('badgeTitle').value;
+  const icon = document.getElementById('badgeIcon').value;
+  const res = await fetch('/api/badges', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title, icon })
+  });
+  showResult('badgeResult', await res.json());
+  loadBadgeOptions();
+}
+
+async function loadPendingReviews() {
+  const res = await fetch('/api/admin/review-pending');
+  const data = await res.json();
+  const list = document.getElementById('pendingReviewsList');
+  if (!data.pending || data.pending.length === 0) {
+    list.innerHTML = '<p style="color:var(--gray);font-size:13px;">Nothing pending review.</p>';
+    return;
+  }
+  list.innerHTML = data.pending.map(p => {
+    const r = p.review;
+    const agreeLabel = r.ai_agrees_with_human === null ? 'AI unavailable' : (r.ai_agrees_with_human ? 'AI agrees' : '⚠ AI disagrees');
+    const flagHtml = r.bias_risk_flags ? `<p style="color:#8B1A1A;font-size:12px;margin-top:6px;"><strong>Bias/evidence flag:</strong> ${BleuLearn.escapeHtml(r.bias_risk_flags)}</p>` : '';
+    return `
+      <div class="card" style="margin-bottom:10px;background:var(--cream);">
+        <p style="font-size:11px;font-weight:700;color:var(--bleu-deep);text-transform:uppercase;">${BleuLearn.escapeHtml(r.target_type)} #${Number(r.target_id)} -- ${agreeLabel}</p>
+        <p style="font-size:13px;margin:6px 0;">${BleuLearn.escapeHtml(r.ai_analysis)}</p>
+        ${flagHtml}
+        <div style="margin-top:8px;">
+          <button class="btn-primary" onclick="resolveReview(${Number(r.id)}, 'approved')">Approve</button>
+          <input type="text" id="overrideNotes_${Number(r.id)}" placeholder="Reason for override (required to override)" style="width:280px;">
+          <select id="overrideTrack_${Number(r.id)}"><option value="">No track change</option><option value="bridge">Bridge</option><option value="grade_level">Grade-Level</option><option value="gifted">Gifted</option></select>
+          <button class="btn-secondary" onclick="resolveReview(${Number(r.id)}, 'overridden')">Override</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+async function resolveReview(review_id, decision) {
+  const notesEl = document.getElementById('overrideNotes_' + review_id);
+  const trackEl = document.getElementById('overrideTrack_' + review_id);
+  const human_decision_notes = notesEl ? notesEl.value : undefined;
+  const override_track = trackEl && trackEl.value ? trackEl.value : undefined;
+  if (decision === 'overridden' && !human_decision_notes) {
+    alert('A documented reason is required to override.');
+    return;
+  }
+  const res = await fetch('/api/admin/review-pending', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ review_id, decision, human_decision_notes, override_track })
+  });
+  await res.json();
+  loadPendingReviews();
+}
+
+async function loadEquityAnalytics() {
+  const res = await fetch('/api/admin/equity-analytics');
+  showResult('equityResult', await res.json());
+}
+
+async function loadOverdueReviews() {
+  const res = await fetch('/api/admin/overdue-reviews');
+  showResult('overdueResult', await res.json());
+}
+
+async function createTransferRecord() {
+  const scholar_user_id = Number(document.getElementById('trScholarId').value);
+  const prior_school_name = document.getElementById('trSchoolName').value;
+  const prior_school_curriculum_notes = document.getElementById('trCurriculumNotes').value;
+  const res = await fetch('/api/transfer-records', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ scholar_user_id, prior_school_name, prior_school_curriculum_notes })
+  });
+  showResult('transferResult', await res.json());
+}
+
+async function createGapFinding() {
+  const transfer_record_id = Number(document.getElementById('gapTransferId').value);
+  const strand = document.getElementById('gapStrand').value;
+  const prior_school_coverage = document.getElementById('gapPriorCoverage').value;
+  const bleulearn_expected_level = document.getElementById('gapExpected').value;
+  const severity = document.getElementById('gapSeverity').value;
+  const documented_gap = document.getElementById('gapDocumented').value;
+  const recommended_action = document.getElementById('gapAction').value;
+  const res = await fetch('/api/curriculum-gap-findings', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ transfer_record_id, strand, prior_school_coverage, bleulearn_expected_level, severity, documented_gap, recommended_action })
+  });
+  showResult('transferResult', await res.json());
+}
+
+async function createPlacementAssessment() {
+  const scholar_user_id = Number(document.getElementById('paScholarId').value);
+  const strand = document.getElementById('paStrand').value;
+  const purpose = document.getElementById('paPurpose').value;
+  const score_level = Number(document.getElementById('paScoreLevel').value);
+  const recommended_track = document.getElementById('paTrack').value;
+  const transferIdRaw = document.getElementById('paTransferRecordId').value;
+  const documented_evidence = document.getElementById('paEvidence').value;
+  const res = await fetch('/api/placement-assessments', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ scholar_user_id, strand, purpose, score_level, recommended_track, documented_evidence, transfer_record_id: transferIdRaw ? Number(transferIdRaw) : undefined })
+  });
+  showResult('placementResult', await res.json());
+}
+
+async function recordGiftedCheckin() {
+  const scholar_user_id = Number(document.getElementById('gcScholarId').value);
+  const strand = document.getElementById('gcStrand').value;
+  const quarter = document.getElementById('gcQuarter').value;
+  const challenge_rating = document.getElementById('gcRating').value;
+  const recommended_action = document.getElementById('gcAction').value;
+  const evidence_notes = document.getElementById('gcEvidence').value;
+  const res = await fetch('/api/gifted-calibration', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ scholar_user_id, strand, quarter, challenge_rating, recommended_action, evidence_notes })
+  });
+  showResult('giftedResult', await res.json());
+}
+
+async function createIepEvaluation() {
+  const accommodation_plan_id = Number(document.getElementById('iepPlanId').value);
+  const area_assessed = document.getElementById('iepArea').value;
+  const present_level_of_performance = document.getElementById('iepPresentLevel').value;
+  const documented_strengths = document.getElementById('iepStrengths').value;
+  const documented_needs = document.getElementById('iepNeeds').value;
+  const recommended_strategies = document.getElementById('iepStrategies').value;
+  const res = await fetch('/api/iep-evaluations', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ accommodation_plan_id, area_assessed, present_level_of_performance, documented_strengths, documented_needs, recommended_strategies })
+  });
+  showResult('iepEvalResult', await res.json());
+}
+
+async function createAccommodation() {
+  const scholar_user_id = Number(document.getElementById('accScholarId').value);
+  const plan_type = document.getElementById('accType').value;
+  const extended_time_multiplier = Number(document.getElementById('accMultiplier').value) || 1.0;
+  const notes = document.getElementById('accNotes').value;
+  const res = await fetch('/api/admin/accommodation-plans', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ scholar_user_id, plan_type, extended_time_multiplier, notes })
+  });
+  showResult('accResult', await res.json());
+}
+
+async function withdrawScholar() {
+  const enrollment_id = Number(document.getElementById('withdrawEnrollId').value);
+  const status = document.getElementById('withdrawStatus').value;
+  const withdrawal_notes = document.getElementById('withdrawNotes').value;
+  const res = await fetch('/api/enrollments', {
+    method: 'PATCH', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ enrollment_id, status, withdrawal_notes })
+  });
+  showResult('withdrawResult', await res.json());
+}
+
+async function awardBadge() {
+  const badge_id = Number(document.getElementById('awardBadgeId').value);
+  const user_id = Number(document.getElementById('awardUserId').value);
+  const res = await fetch('/api/badges', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ action: 'award', badge_id, user_id })
+  });
+  showResult('badgeResult', await res.json());
+}
+
+init();
+</script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Achievement Badges</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">🏅</div>
+      <div><h1>BLEULEARN</h1><p>Your Achievements</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → Achievement Badges</p>
+  <div class="hero">
+    <h1>🏅 Achievement Badges</h1>
+    <p>Earned by completing documented curriculum milestones. Every badge is tied to a specific, verifiable achievement.</p>
+  </div>
+  <div class="grid-3" id="badges"></div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+<script>
+const state = BleuLearn.getState();
+const badges = [
+  {n:"First Document",icon:"📜",desc:"Complete your first Document Box analysis",earned: state.points > 0},
+  {n:"7-Day Scholar",icon:"🔥",desc:"7-day learning streak",earned: state.streak >= 7},
+  {n:"Arcade Champion",icon:"🎮",desc:"Complete all 5 Arcade levels",earned: false},
+  {n:"Archive Explorer",icon:"🗃️",desc:"Complete 5 Archive Assignments",earned: false},
+  {n:"Harkness Leader",icon:"🗣️",desc:"Lead 3 Harkness discussions",earned: false},
+  {n:"Math Master",icon:"📐",desc:"Complete 50 Singapore Math lessons",earned: false},
+  {n:"Primary Source Expert",icon:"🔍",desc:"Complete Primary Source Literacy strand",earned: false},
+  {n:"Sovereign Scholar",icon:"👑",desc:"Complete any full BleuHistory volume",earned: false},
+  {n:"Language Builder",icon:"🌐",desc:"Complete one language strand",earned: false},
+];
+document.getElementById('badges').innerHTML = badges.map(b=>
+  `<div class="card text-center" style="${b.earned?'border:2px solid var(--gold);':'opacity:0.5;'}">
+    <div style="font-size:52px;margin-bottom:12px;">${b.icon}</div>
+    <h3 style="font-family:var(--font-display);">${b.n}</h3>
+    <p style="color:var(--gray);font-size:13px;">${b.desc}</p>
+    ${b.earned?'<span class="tag tag-gold" style="margin-top:12px;">EARNED</span>':'<span class="tag tag-light" style="margin-top:12px;">Locked</span>'}
+  </div>`).join('');
+</script>
+</body>
+</html>

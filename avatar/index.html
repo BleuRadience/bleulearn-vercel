@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Avatar Studio</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">🎨</div>
+      <div><h1>BLEULEARN</h1><p>Customize Your Avatar</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → Avatar Studio</p>
+  <div class="hero">
+    <h1>🎨 Avatar Studio</h1>
+    <p>Customize your BleuLearn scholar avatar. Earn accessory unlocks by completing curriculum milestones.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:200px 1fr;gap:24px;">
+    <div class="card text-center">
+      <div id="avatar" style="font-size:80px;margin:20px 0;">👩‍🎓</div>
+      <h3 style="font-family:var(--font-display);" id="avname">Scholar</h3>
+      <p style="color:var(--gray);font-size:12px;">⭐ <span id="avpts">0</span> points</p>
+    </div>
+    <div>
+      <div class="card mb-16">
+        <p class="section-sub">Scholar</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn-outline" onclick="setA('👩‍🎓')">👩‍🎓</button>
+          <button class="btn-outline" onclick="setA('🧑‍🎓')">🧑‍🎓</button>
+          <button class="btn-outline" onclick="setA('👩🏿‍🎓')">👩🏿‍🎓</button>
+          <button class="btn-outline" onclick="setA('🧑🏿‍🎓')">🧑🏿‍🎓</button>
+          <button class="btn-outline" onclick="setA('👩🏽‍🎓')">👩🏽‍🎓</button>
+          <button class="btn-outline" onclick="setA('🧑🏽‍🎓')">🧑🏽‍🎓</button>
+        </div>
+      </div>
+      <div class="card mb-16">
+        <p class="section-sub">Accessories (Unlocked by Milestones)</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn-outline" onclick="setA('👑')">👑 Champion</button>
+          <button class="btn-outline" onclick="setA('🎓')">🎓 Graduate</button>
+          <button class="btn-outline" onclick="setA('📜')">📜 Archivist</button>
+          <button class="btn-outline" onclick="setA('🔍')">🔍 Researcher</button>
+        </div>
+      </div>
+      <button class="btn-gold" style="width:100%;" onclick="save()">Save Avatar</button>
+    </div>
+  </div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+<script>
+document.getElementById('avpts').textContent = BleuLearn.getPoints();
+const saved = localStorage.getItem('bl_avatar');
+if(saved) document.getElementById('avatar').textContent = saved;
+function setA(a){ document.getElementById('avatar').textContent = a; }
+function save(){
+  localStorage.setItem('bl_avatar', document.getElementById('avatar').textContent);
+  BleuLearn.showNotification('Avatar saved!', 'success');
+}
+</script>
+</body>
+</html>

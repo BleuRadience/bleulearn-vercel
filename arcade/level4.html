@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Arcade Level 4: Model Master</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+  
+    <style>
+      .q-counter{font-size:13px;color:var(--gray);margin-bottom:20px;}
+      .doc-note{background:var(--cream);border-left:3px solid var(--gold);padding:10px 14px;border-radius:0 8px 8px 0;font-size:13px;margin-top:12px;display:none;}
+      .option-btn{transition:all .15s;cursor:pointer;}
+      .option-btn:disabled{cursor:not-allowed;opacity:0.7;}
+      .next-wrap{margin-top:20px;text-align:center;display:none;}
+    </style>
+</head>
+<body>
+  <div class="container">
+    <div class="main-header">
+      <a href="/arcade/" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">🔷</div>
+        <div><h1>BLEULEARN</h1><p>Arcade</p></div>
+      </a>
+      <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+    </div>
+    <p class="breadcrumb"><a href="/">Home</a> → Level 4: Model Master</p>
+    <div class="game-card">
+      <h2 style="font-family:var(--font-display);color:var(--bleu-deep);">🏆 Level 4: Model Master</h2>
+      <p style="color:var(--gray);font-size:14px;">Advanced documented problem solving across subjects.</p>
+      <div class="q-counter">Question <span id="qnum">1</span> of 3 · ⭐ <span id="pts">0</span></div>
+      <div class="question-text" id="qtext">Loading...</div>
+      <div class="options-grid" id="opts"></div>
+      <div class="feedback-box hidden" id="feedback"></div>
+      <div class="doc-note" id="docnote"></div>
+      <div class="next-wrap" id="nextwrap">
+        <button class="btn-primary" onclick="nextQ()">Next Question →</button>
+      </div>
+    </div>
+    <div class="site-footer">
+      <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — 
+      AvaBleu House HQ | BleuLearn Sovereign Curriculum | 2026<br>
+      <small><a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a> · 
+      <a href="/legal/attribution.html">Attribution</a></small>
+    </div>
+  </div>
+  <script src="/js/bleulearn.js"></script>
+  
+    <script>
+    const Qs = [{"text": "The Mali Empire"s documented gold depressed Cairo"s market for how many years?", "options": ["5", "8", "12", "15"], "correct": 2, "pts": 25, "doc": "Al-Umari (c.1337) documented that Mansa Musa"s 1324 pilgrimage depressed Cairo"s gold market for 12 years."}, {"text": "What percentage of Japanese Americans incarcerated under EO 9066 were U.S. citizens?", "options": ["About 30%", "About 50%", "About two-thirds", "Nearly all"], "correct": 2, "pts": 25, "doc": "Barquera et al. (2020) and historical records document approximately two-thirds were U.S. citizens."}, {"text": "The Trans-Atlantic Slave Trade Database documents how many slave voyages?", "options": ["About 10,000", "About 20,000", "About 36,000", "About 50,000"], "correct": 2, "pts": 25, "doc": "slavevoyages.org documents approximately 36,000 voyages."}];
+    let cur = 0, total = 0;
+    function load() {
+      const q = Qs[cur];
+      document.getElementById('qtext').textContent = q.text;
+      document.getElementById('opts').innerHTML = q.options.map((o,i) =>
+        `<button class="option-btn" onclick="check(${i})">${o}</button>`
+      ).join('');
+      document.getElementById('feedback').className = 'feedback-box hidden';
+      document.getElementById('docnote').style.display = 'none';
+      document.getElementById('nextwrap').style.display = 'none';
+      document.getElementById('qnum').textContent = cur + 1;
+    }
+    function check(sel) {
+      const q = Qs[cur];
+      document.querySelectorAll('.option-btn').forEach((b,i) => {
+        b.disabled = true;
+        if (i === q.correct) b.classList.add('correct');
+        else if (i === sel && sel !== q.correct) b.classList.add('wrong');
+      });
+      const fb = document.getElementById('feedback');
+      const dn = document.getElementById('docnote');
+      if (sel === q.correct) {
+        total += q.pts; document.getElementById('pts').textContent = total;
+        fb.textContent = `✅ Correct! +${q.pts} points`;
+        fb.className = 'feedback-box correct';
+        BleuLearn.addPoints(q.pts, `Level 4 — Q${cur+1}`);
+      } else {
+        fb.textContent = `❌ Not quite. The correct answer is: ${q.options[q.correct]}`;
+        fb.className = 'feedback-box wrong';
+      }
+      dn.textContent = `📜 Why this matters: ${q.doc}`;
+      dn.style.display = 'block';
+      document.getElementById('nextwrap').style.display = cur + 1 < Qs.length ? 'block' : 'none';
+      if (cur + 1 >= Qs.length) {
+        BleuLearn.addPoints(50, 'Level 4 completed!');
+        fb.textContent += ' 🎉 LEVEL COMPLETE! +50 bonus!';
+      }
+    }
+    function nextQ() { cur++; load(); }
+    load();
+    </script>
+</body></html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Civic Leadership</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+  
+</head>
+<body>
+  <div class="container">
+    <div class="main-header">
+      <a href="/" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">🔷</div>
+        <div><h1>BLEULEARN</h1><p>BleuLearn — K-12</p></div>
+      </a>
+      <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+    </div>
+    <p class="breadcrumb"><a href="/">Home</a> → Civic Leadership</p>
+    <div class="hero" style="margin-bottom:28px;">
+      <div style="font-size:56px;margin-bottom:16px;">🌟</div>
+      <h1>Civic Leadership</h1>
+      <p>Government, civics, community action. Virginia GOVT SOL and Civics and Economics SOL.</p>
+      <div style="margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;">
+        <span class="tag tag-gold">K-12</span>
+        <span class="tag" style="background:rgba(255,255,255,0.15);color:white;">BleuLearn Strand #23 of 23</span>
+      </div>
+    </div>
+
+    <div class="grid-2" id="unitsGrid"></div>
+    
+    
+
+    <div class="card card-interactive mt-24" style="text-align:center;background:var(--cream);"
+         onclick="BleuLearn.chatWithAI('Judge Logic', 'Civic Leadership')">
+      <div style="font-size:52px;margin-bottom:12px;">🗣️</div>
+      <h3 style="font-family:var(--font-display);">Chat with Judge Logic</h3>
+      <p style="color:var(--gray);">Your AI Civic Leadership tutor — ask any question, any time.</p>
+      <button class="btn-primary" style="margin-top:16px;">Open AI Tutor</button>
+    </div>
+
+    <div class="card mt-16">
+      <p class="section-sub">Resources</p>
+      <div class="flex" style="gap:12px;flex-wrap:wrap;">
+        <a href="/worksheets/" class="btn-outline">Worksheets</a>
+        <a href="/guides/" class="btn-outline">Teacher Guides</a>
+        <a href="/arcade/" class="btn-outline">Practice Arcade</a>
+        <a href="/library/" class="btn-outline">Library</a>
+      </div>
+    </div>
+    <div class="site-footer">
+      <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — 
+      AvaBleu House HQ | BleuLearn Sovereign Curriculum | 2026<br>
+      <small><a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a> · 
+      <a href="/legal/attribution.html">Attribution</a></small>
+    </div>
+  </div>
+  <script src="/js/bleulearn.js"></script>
+  
+    <script>
+    const units = [
+      {n:1, t:"Unit 1: Foundations", icon:"📖", lessons:12},
+      {n:2, t:"Unit 2: Core Concepts", icon:"📚", lessons:15},
+      {n:3, t:"Unit 3: Documented Evidence", icon:"🔍", lessons:12},
+      {n:4, t:"Unit 4: Applied Practice", icon:"⚙️", lessons:10},
+      {n:5, t:"Unit 5: Assessment & Capstone", icon:"⭐", lessons:8}
+    ];
+    document.getElementById('unitsGrid').innerHTML = units.map(u => `
+      <div class="card card-interactive" onclick="BleuLearn.showNotification('Unit ${u.n}: ${u.t} — ${u.lessons} lessons', 'info')">
+        <div style="font-size:36px;text-align:center;margin-bottom:12px;">${u.icon}</div>
+        <h3 style="text-align:center;font-family:var(--font-display)">${u.t}</h3>
+        <p style="text-align:center;color:var(--gray);font-size:13px;">${u.lessons} lessons</p>
+        <div class="progress-bar" style="margin:14px 0"><div class="progress-fill" style="width:0%"></div></div>
+        <button class="btn-primary" style="width:100%">Start Unit</button>
+      </div>`).join('');
+    </script>
+</body></html>

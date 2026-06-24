@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — BleuLearn Arcade</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+  
+</head>
+<body>
+  <div class="container">
+    <div class="main-header">
+      <a href="/" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">🔷</div>
+        <div><h1>BLEULEARN</h1><p>Practice & Points</p></div>
+      </a>
+      <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+    </div>
+    <p class="breadcrumb"><a href="/">Home</a> → The Arcade</p>
+    <div class="hero">
+      <h1>🎮 BleuLearn Arcade</h1>
+      <p>Earn points by answering documented questions from across all 23 curriculum strands. Every question is supported by a primary source.</p>
+    </div>
+    <div class="grid-2"><div class="card card-interactive" onclick="BleuLearn.goTo('/arcade/level1.html')">
+        <div style="font-size:48px;text-align:center;margin-bottom:12px;">🟦</div>
+        <h3 style="text-align:center;font-family:var(--font-display);">Level 1: Bar Builder</h3>
+        <p style="text-align:center;color:var(--gray);font-size:14px;">Build bar models to solve documented problems.</p>
+        <button class="btn-primary" style="width:100%;margin-top:16px;">Play Level 1</button>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/arcade/level2.html')">
+        <div style="font-size:48px;text-align:center;margin-bottom:12px;">🔧</div>
+        <h3 style="text-align:center;font-family:var(--font-display);">Level 2: Equation Engineer</h3>
+        <p style="text-align:center;color:var(--gray);font-size:14px;">Build and solve equations from documented word problems.</p>
+        <button class="btn-primary" style="width:100%;margin-top:16px;">Play Level 2</button>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/arcade/level3.html')">
+        <div style="font-size:48px;text-align:center;margin-bottom:12px;">📐</div>
+        <h3 style="text-align:center;font-family:var(--font-display);">Level 3: Algebra Apprentice</h3>
+        <p style="text-align:center;color:var(--gray);font-size:14px;">Solve documented historical algebra problems.</p>
+        <button class="btn-primary" style="width:100%;margin-top:16px;">Play Level 3</button>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/arcade/level4.html')">
+        <div style="font-size:48px;text-align:center;margin-bottom:12px;">🏆</div>
+        <h3 style="text-align:center;font-family:var(--font-display);">Level 4: Model Master</h3>
+        <p style="text-align:center;color:var(--gray);font-size:14px;">Advanced documented problem solving across subjects.</p>
+        <button class="btn-primary" style="width:100%;margin-top:16px;">Play Level 4</button>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/arcade/level5.html')">
+        <div style="font-size:48px;text-align:center;margin-bottom:12px;">👑</div>
+        <h3 style="text-align:center;font-family:var(--font-display);">Level 5: Numerica Savior</h3>
+        <p style="text-align:center;color:var(--gray);font-size:14px;">Final challenge — cross-subject documented mastery.</p>
+        <button class="btn-primary" style="width:100%;margin-top:16px;">Play Level 5</button>
+      </div>
+    </div>
+    <div class="site-footer">
+      <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — 
+      AvaBleu House HQ | BleuLearn Sovereign Curriculum | 2026<br>
+      <small><a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a> · 
+      <a href="/legal/attribution.html">Attribution</a></small>
+    </div>
+  </div>
+  <script src="/js/bleulearn.js"></script>
+  
+</body></html>

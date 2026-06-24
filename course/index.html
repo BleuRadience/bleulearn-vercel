@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BleuLearn — Courses</title>
+<link rel="stylesheet" href="/css/bleulearn.css">
+<style>
+  .course-card{cursor:pointer;transition:transform .15s;}
+  .course-card:hover{transform:translateY(-2px);}
+  .detail-section{margin-top:20px;}
+  .detail-section h3{color:var(--bleu-deep);font-family:var(--font-display);margin-bottom:10px;}
+  .item-row{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:white;border:1px solid var(--light-gray);border-radius:10px;margin-bottom:8px;}
+  .item-row .due{font-size:12px;color:var(--gray);}
+  .badge-type{font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;background:var(--cream);color:var(--bleu-deep);text-transform:uppercase;}
+  textarea,input{width:100%;padding:10px;border:2px solid var(--light-gray);border-radius:8px;font-family:var(--font-body);margin-bottom:8px;}
+  #loginGate{display:none;text-align:center;padding:60px 20px;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;"><div class="logo-icon">🎓</div><div><h1>BLEULEARN</h1><p>Courses</p></div></a>
+    <a href="/gradebook/" class="btn-secondary">📊 Gradebook</a>
+  </div>
+
+  <div id="loginGate">
+    <p style="color:var(--gray);">You need to <a href="/login/">sign in</a> to view courses.</p>
+  </div>
+
+  <div id="courseListView">
+    <h2 style="font-family:var(--font-display);color:var(--bleu-deep);margin-bottom:16px;">All Courses</h2>
+    <div id="courseList" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;"></div>
+  </div>
+
+  <div id="courseDetailView" style="display:none;">
+    <button class="btn-secondary" onclick="backToList()" style="margin-bottom:16px;">← All Courses</button>
+    <h2 id="courseTitle" style="font-family:var(--font-display);color:var(--bleu-deep);"></h2>
+    <p id="courseMeta" style="color:var(--gray);font-size:13px;margin-bottom:16px;"></p>
+
+    <div class="detail-section">
+      <h3>📝 Assignments</h3>
+      <div id="assignmentsList"></div>
+    </div>
+    <div class="detail-section">
+      <h3>❓ Quizzes</h3>
+      <div id="quizzesList"></div>
+    </div>
+    <div class="detail-section">
+      <h3>💬 Forums</h3>
+      <div id="forumsList"></div>
+    </div>
+  </div>
+
+  <!-- Assignment submission modal-ish inline panel -->
+  <div id="submitPanel" style="display:none;" class="card">
+    <h3 id="submitAssignmentTitle" style="color:var(--bleu-deep);"></h3>
+    <textarea id="submissionText" rows="6" placeholder="Write your documented response..."></textarea>
+    <button class="btn-primary" onclick="submitAssignment()">Submit</button>
+    <button class="btn-secondary" onclick="document.getElementById('submitPanel').style.display='none'">Cancel</button>
+  </div>
+</div>
+
+<script src="/js/bleulearn.js"></script>
+<script>
+let currentUser = null;
+let currentCourseId = null;
+let currentAssignmentId = null;
+
+async function init() {
+  currentUser = await BleuLearn.getCurrentUser();
+  if (!currentUser) { document.getElementById('loginGate').style.display = 'block'; document.getElementById('courseListView').style.display = 'none'; return; }
+  loadCourses();
+}
+
+async function loadCourses() {
+  const res = await fetch('/api/courses');
+  const data = await res.json();
+  const list = document.getElementById('courseList');
+  if (!data.courses || data.courses.length === 0) {
+    list.innerHTML = '<p style="color:var(--gray);">No courses yet. ' + (currentUser.role === 'teacher' || currentUser.role === 'admin' ? 'Create one via POST /api/courses.' : 'Ask your teacher to create one.') + '</p>';
+    return;
+  }
+  list.innerHTML = data.courses.map(c => `
+    <div class="card course-card" onclick="openCourse(${c.id})">
+      <p style="font-size:11px;color:var(--gold);font-weight:700;text-transform:uppercase;">${BleuLearn.escapeHtml(c.strand)}</p>
+      <h3 style="color:var(--bleu-deep);font-family:var(--font-display);">${BleuLearn.escapeHtml(c.title)}</h3>
+      <p style="font-size:12px;color:var(--gray);">${BleuLearn.escapeHtml(c.grade_level)}</p>
+    </div>
+  `).join('');
+}
+
+async function openCourse(id) {
+  currentCourseId = id;
+  const res = await fetch('/api/courses?id=' + id);
+  const data = await res.json();
+  document.getElementById('courseListView').style.display = 'none';
+  document.getElementById('courseDetailView').style.display = 'block';
+  document.getElementById('courseTitle').textContent = data.course.title; // textContent is safe, not innerHTML
+  document.getElementById('courseMeta').textContent = data.course.strand + ' | ' + data.course.grade_level;
+
+  const [assignRes, quizRes, forumRes] = await Promise.all([
+    fetch('/api/assignments?course_id=' + id),
+    fetch('/api/quizzes?course_id=' + id),
+    fetch('/api/forums?course_id=' + id)
+  ]);
+  const assignData = await assignRes.json();
+  const quizData = await quizRes.json();
+  const forumData = await forumRes.json();
+
+  document.getElementById('assignmentsList').innerHTML = (assignData.assignments || []).map(a => `
+    <div class="item-row">
+      <div><strong>${BleuLearn.escapeHtml(a.title)}</strong><div class="due">${a.due_at ? 'Due ' + new Date(a.due_at).toLocaleDateString() : 'No due date'} · ${Number(a.points_possible)} pts</div></div>
+      <button class="btn-secondary" onclick="openSubmitPanel(${Number(a.id)}, this.closest('.item-row').querySelector('strong').textContent)">Submit</button>
+    </div>
+  `).join('') || '<p style="color:var(--gray);font-size:13px;">No assignments yet.</p>';
+
+  document.getElementById('quizzesList').innerHTML = (quizData.quizzes || []).map(q => `
+    <div class="item-row"><div><strong>${BleuLearn.escapeHtml(q.title)}</strong><div class="due">${q.time_limit_minutes ? Number(q.time_limit_minutes) + ' min limit' : 'No time limit'}</div></div>
+    <span class="badge-type">Quiz</span></div>
+  `).join('') || '<p style="color:var(--gray);font-size:13px;">No quizzes yet.</p>';
+
+  document.getElementById('forumsList').innerHTML = (forumData.forums || []).map(f => `
+    <div class="item-row"><div><strong>${BleuLearn.escapeHtml(f.title)}</strong></div><span class="badge-type">Forum</span></div>
+  `).join('') || '<p style="color:var(--gray);font-size:13px;">No forums yet.</p>';
+}
+
+function openSubmitPanel(assignmentId, title) {
+  currentAssignmentId = assignmentId;
+  document.getElementById('submitAssignmentTitle').textContent = 'Submit: ' + title;
+  document.getElementById('submitPanel').style.display = 'block';
+  document.getElementById('submitPanel').scrollIntoView({ behavior: 'smooth' });
+}
+
+async function submitAssignment() {
+  const text = document.getElementById('submissionText').value.trim();
+  if (!text) return;
+  const res = await fetch('/api/submissions', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ assignment_id: currentAssignmentId, submission_text: text })
+  });
+  const data = await res.json();
+  if (res.ok) {
+    BleuLearn.showNotification('Submitted.', 'success');
+    document.getElementById('submitPanel').style.display = 'none';
+    document.getElementById('submissionText').value = '';
+  } else {
+    BleuLearn.showNotification(data.error || 'Could not submit.', 'error');
+  }
+}
+
+function backToList() {
+  document.getElementById('courseDetailView').style.display = 'none';
+  document.getElementById('courseListView').style.display = 'block';
+}
+
+init();
+</script>
+</body>
+</html>
