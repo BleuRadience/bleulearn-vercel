@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — College Portfolio</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">🎓</div>
+      <div><h1>BLEULEARN</h1><p>Your Academic Record</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → College Portfolio</p>
+  <div class="hero">
+    <h1>🎓 College Portfolio</h1>
+    <p>A documented record of your academic achievements, leadership, service, and creative work. Build it from Grade 6 onward. What elite schools look for.</p>
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <p class="section-sub">Academic Achievements</p>
+      <div id="academic"></div>
+      <button class="btn-outline" style="width:100%;margin-top:12px;" onclick="addItem('academic','Achievement')">+ Add Achievement</button>
+    </div>
+    <div class="card">
+      <p class="section-sub">Leadership Roles</p>
+      <div id="leadership"></div>
+      <button class="btn-outline" style="width:100%;margin-top:12px;" onclick="addItem('leadership','Leadership Role')">+ Add Role</button>
+    </div>
+    <div class="card">
+      <p class="section-sub">Community Service</p>
+      <div id="service"></div>
+      <button class="btn-outline" style="width:100%;margin-top:12px;" onclick="addService()">+ Add Service Hours</button>
+    </div>
+    <div class="card">
+      <p class="section-sub">BleuLearn Points Summary</p>
+      <div class="card card-navy text-center">
+        <div style="font-size:40px;color:var(--gold);font-weight:800;" id="ptsDisplay">0</div>
+        <p style="color:rgba(255,255,255,0.8);">Total Points Earned</p>
+      </div>
+      <div class="card card-teal text-center mt-16">
+        <div style="font-size:32px;color:white;font-weight:800;" id="strandDisplay">0</div>
+        <p style="color:rgba(255,255,255,0.8);">Curriculum Strands Started</p>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-24">
+    <p class="section-sub">Personal Statement (Draft)</p>
+    <textarea id="ps" rows="6" style="width:100%;padding:16px;border:2px solid var(--light-gray);border-radius:12px;font-family:var(--font-body);font-size:15px;line-height:1.6;" placeholder="Write your personal statement here. What does your documented education mean to you? What do you want to do with it?"></textarea>
+    <button class="btn-primary" style="margin-top:12px;" onclick="savePS()">Save Statement</button>
+  </div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+<script>
+document.getElementById('ptsDisplay').textContent = BleuLearn.getPoints();
+let portfolio = JSON.parse(localStorage.getItem('bl_portfolio') || '{"academic":[],"leadership":[],"service":[]}');
+document.getElementById('ps').value = localStorage.getItem('bl_ps') || '';
+function render(){
+  ['academic','leadership'].forEach(cat=>{
+    document.getElementById(cat).innerHTML = portfolio[cat].map((item,i)=>
+      `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--light-gray);">
+        <span style="font-size:14px;">${item}</span>
+        <button onclick="removeItem('${cat}',${i})" style="background:none;border:none;cursor:pointer;color:var(--rust);">✕</button>
+      </div>`).join('') || '<p style="color:var(--gray);font-size:13px;">None added yet.</p>';
+  });
+  document.getElementById('service').innerHTML = portfolio.service.map((s,i)=>
+    `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--light-gray);">
+      <span style="font-size:14px;">${s.hrs} hrs — ${s.org}</span>
+      <button onclick="removeSvc(${i})" style="background:none;border:none;cursor:pointer;color:var(--rust);">✕</button>
+    </div>`).join('') || '<p style="color:var(--gray);font-size:13px;">None added yet.</p>';
+  save();
+}
+function addItem(cat, label){ const v=prompt(`Enter ${label}:`); if(v){portfolio[cat].push(v);render();} }
+function removeItem(cat,i){ portfolio[cat].splice(i,1); render(); }
+function addService(){ const h=prompt('Hours:'); const o=prompt('Organization:'); if(h&&o){portfolio.service.push({hrs:h,org:o});render();} }
+function removeSvc(i){ portfolio.service.splice(i,1); render(); }
+function save(){ localStorage.setItem('bl_portfolio', JSON.stringify(portfolio)); }
+function savePS(){ localStorage.setItem('bl_ps', document.getElementById('ps').value); BleuLearn.showNotification('Statement saved.','success'); }
+render();
+</script>
+</body>
+</html>

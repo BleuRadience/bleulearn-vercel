@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — AI Lesson Plan Generator</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <style>
+    .gen-panel{background:var(--cream);border-radius:16px;padding:24px;margin-bottom:20px;}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+    .form-group{display:flex;flex-direction:column;gap:6px;}
+    .form-group label{font-size:13px;font-weight:700;color:var(--bleu-deep);letter-spacing:0.5px;text-transform:uppercase;}
+    select,input[type=text],textarea{background:white;border:2px solid var(--light-gray);border-radius:10px;padding:10px 14px;font-family:var(--font-body);font-size:14px;color:var(--charcoal);transition:border-color 0.2s;}
+    select:focus,input:focus,textarea:focus{outline:none;border-color:var(--bleu-deep);}
+    textarea{resize:vertical;min-height:80px;}
+    .output-area{background:white;border:2px solid var(--light-gray);border-radius:14px;padding:24px;min-height:400px;font-family:var(--font-body);font-size:14px;line-height:1.7;white-space:pre-wrap;color:var(--charcoal);}
+    .section-label{font-size:11px;font-weight:800;color:var(--gold);letter-spacing:1.5px;text-transform:uppercase;margin:16px 0 4px;}
+    .loading-dots span{animation:blink 1.4s infinite;display:inline-block;}
+    .loading-dots span:nth-child(2){animation-delay:.2s;}
+    .loading-dots span:nth-child(3){animation-delay:.4s;}
+    @keyframes blink{0%,80%,100%{opacity:0;}40%{opacity:1;}}
+    .plan-section{border-left:3px solid var(--gold);padding-left:12px;margin:12px 0;}
+    .plan-section h4{color:var(--bleu-deep);font-size:14px;margin-bottom:6px;}
+    .warning-box{background:#FFF0F0;border-left:4px solid #C62828;padding:12px;border-radius:0 8px 8px 0;font-size:13px;margin-bottom:16px;}
+    .copy-btn{background:var(--light-gray);color:var(--charcoal);border:none;padding:6px 14px;border-radius:20px;cursor:pointer;font-size:12px;margin-left:8px;}
+    .copy-btn:hover{background:var(--bleu-deep);color:white;}
+    .btn-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/teacher/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">📋</div>
+      <div><h1>BLEULEARN</h1><p>AI Lesson Plan Generator</p></div>
+    </a>
+    <div style="display:flex;gap:12px;align-items:center;">
+      <a href="/answer-keys/" class="btn-secondary">📋 Answer Keys</a>
+      <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+    </div>
+  </div>
+
+  <div class="warning-box">
+    ⚠️ <strong>Teacher Review Required:</strong> All AI-generated lesson plans must be reviewed by the teacher before use. The AI applies the BleuLearn standard but cannot verify that generated archive citations are accurate. Verify all archive URLs before teaching.
+  </div>
+
+  <div class="gen-panel">
+    <h2 style="color:var(--bleu-deep);font-family:var(--font-display);margin-bottom:16px;">Generate a Documented BleuLearn Lesson Plan</h2>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Strand</label>
+        <select id="strand">
+          <option value="BleuHistory">BleuHistory (Primary Source)</option>
+          <option value="Singapore Mathematics">Singapore Mathematics (CPA)</option>
+          <option value="Language Arts">Language Arts (Structured Literacy)</option>
+          <option value="Science">Science (CER Framework)</option>
+          <option value="Financial Architecture">Financial Architecture</option>
+          <option value="Five Languages">Five Languages</option>
+          <option value="Indigenous Peoples Studies">Indigenous Peoples Studies</option>
+          <option value="Black World Studies">Black World Studies</option>
+          <option value="Computer Science">Computer Science</option>
+          <option value="Civics">Civics</option>
+          <option value="Geography">Geography</option>
+          <option value="Cooperative Economics">Cooperative Economics</option>
+          <option value="Performing Arts">Performing Arts (BleuLearn Verse)</option>
+          <option value="Visual Arts">Visual Arts</option>
+          <option value="Physical Education">Physical Education</option>
+          <option value="Health and Wellness">Health and Wellness</option>
+          <option value="Rhetoric">Rhetoric and Documented Argument</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Grade Level</label>
+        <select id="grade">
+          <option value="Kindergarten">Kindergarten</option>
+          <option value="Grade 1">Grade 1</option>
+          <option value="Grade 2">Grade 2</option>
+          <option value="Grade 3">Grade 3</option>
+          <option value="Grade 4">Grade 4</option>
+          <option value="Grade 5" selected>Grade 5</option>
+          <option value="Grade 6">Grade 6</option>
+          <option value="Grade 7">Grade 7</option>
+          <option value="Grade 8">Grade 8</option>
+          <option value="Grade 9">Grade 9</option>
+          <option value="Grade 10">Grade 10</option>
+          <option value="Grade 11">Grade 11</option>
+          <option value="Grade 12">Grade 12</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Unit / Topic</label>
+        <input type="text" id="topic" placeholder="e.g. Mansa Musa, Fraction Bar Models, Harkness on Redlining..." />
+      </div>
+      <div class="form-group">
+        <label>Lesson Duration</label>
+        <select id="duration">
+          <option value="45 minutes">45 minutes</option>
+          <option value="60 minutes" selected>60 minutes</option>
+          <option value="75 minutes">75 minutes</option>
+          <option value="90 minutes">90 minutes</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label>Discourse Rung (from the Discourse Ladder)</label>
+        <select id="rung">
+          <option value="Rung 1 (Turn-and-Talk)">Rung 1 — Turn-and-Talk</option>
+          <option value="Rung 2 (Partner Discussion with Share)">Rung 2 — Partner Discussion with Share</option>
+          <option value="Rung 3 (Structured Academic Controversy)" selected>Rung 3 — Structured Academic Controversy</option>
+          <option value="Rung 4 (Socratic Seminar)">Rung 4 — Socratic Seminar</option>
+          <option value="Rung 5 (Harkness)">Rung 5 — Harkness</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Specific Need or Focus (optional)</label>
+        <input type="text" id="focus" placeholder="e.g. connect to Financial Architecture, include BleuLearn Verse, emphasis on bar models..." />
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-bottom:16px;">
+      <label>Additional Context (optional)</label>
+      <textarea id="context" placeholder="What have scholars already learned? What documents have they read? Any specific challenges to address?"></textarea>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" onclick="generatePlan()" id="genBtn">
+        🤖 Generate BleuLearn Lesson Plan
+      </button>
+      <button class="btn-secondary" onclick="clearOutput()">Clear</button>
+      <span style="font-size:12px;color:var(--gray);">Powered by Anthropic API</span>
+    </div>
+  </div>
+
+  <div id="outputContainer" style="display:none;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+      <h3 style="color:var(--bleu-deep);font-family:var(--font-display);">Generated Lesson Plan</h3>
+      <div>
+        <button class="copy-btn" onclick="copyPlan()">📋 Copy</button>
+        <button class="copy-btn" onclick="printPlan()">🖨️ Print</button>
+      </div>
+    </div>
+    <div class="output-area" id="outputArea"></div>
+    <p style="font-size:12px;color:var(--gray);margin-top:8px;">⚠️ Verify all archive URLs before teaching. AI-generated citations require teacher verification.</p>
+  </div>
+
+  <div id="loadingArea" style="display:none;text-align:center;padding:40px;">
+    <div style="font-size:40px;margin-bottom:16px;">📋</div>
+    <p style="color:var(--bleu-deep);font-weight:700;font-size:18px;">Generating your BleuLearn lesson plan<span class="loading-dots"><span>.</span><span>.</span><span>.</span></span></p>
+    <p style="color:var(--gray);font-size:14px;">Applying the documented BleuLearn standard to your request.</p>
+  </div>
+</div>
+
+<script src="/js/bleulearn.js"></script>
+<script>
+async function generatePlan() {
+  const strand = document.getElementById('strand').value;
+  const grade = document.getElementById('grade').value;
+  const topic = document.getElementById('topic').value.trim();
+  const duration = document.getElementById('duration').value;
+  const rung = document.getElementById('rung').value;
+  const focus = document.getElementById('focus').value.trim();
+  const context = document.getElementById('context').value.trim();
+
+  if (!topic) {
+    BleuLearn.showNotification('Please enter a unit or topic.', 'warning');
+    return;
+  }
+
+  document.getElementById('outputContainer').style.display = 'none';
+  document.getElementById('loadingArea').style.display = 'block';
+  document.getElementById('genBtn').disabled = true;
+
+  const userPrompt = `Generate a complete BleuLearn lesson plan for:
+
+Strand: ${strand}
+Grade: ${grade}
+Topic/Unit: ${topic}
+Duration: ${duration}
+Discourse Rung: ${rung}
+${focus ? 'Specific Focus: ' + focus : ''}
+${context ? 'Additional Context: ' + context : ''}
+
+Follow the BleuLearn standard exactly. Include specific document names and archive URLs. Do not use textbooks. Apply the documented BleuLearn format.`;
+
+  try {
+    // Calls our own serverless proxy at /api/generate-lesson-plan, NOT the Anthropic API directly.
+    // The API key lives only in the Vercel server environment -- never in this browser code.
+    const response = await fetch('/api/generate-lesson-plan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ strand, grade, topic, duration, rung, focus, context })
+    });
+
+    const data = await response.json();
+
+    document.getElementById('loadingArea').style.display = 'none';
+    document.getElementById('outputContainer').style.display = 'block';
+    document.getElementById('genBtn').disabled = false;
+
+    if (!response.ok) {
+      document.getElementById('outputArea').textContent =
+        'Could not generate a lesson plan.\n\n' + (data.error || 'Unknown server error.') +
+        '\n\nIf this says ANTHROPIC_API_KEY is not set, that means the school\'s developer ' +
+        'has not yet added the API key in Vercel Project Settings -> Environment Variables. ' +
+        'This generator cannot function until that one-time setup is done.';
+      return;
+    }
+
+    document.getElementById('outputArea').textContent = data.lessonPlan;
+    if (window.BleuLearn) BleuLearn.addPoints(25);
+    BleuLearn.showNotification('Lesson plan generated. Review all archive URLs before teaching.', 'success');
+
+  } catch (err) {
+    document.getElementById('loadingArea').style.display = 'none';
+    document.getElementById('outputArea').textContent = 'Network error contacting the lesson plan service. Please check your connection and try again.\n\nError: ' + err.message;
+    document.getElementById('outputContainer').style.display = 'block';
+    document.getElementById('genBtn').disabled = false;
+  }
+}
+
+function copyPlan() {
+  const text = document.getElementById('outputArea').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    BleuLearn.showNotification('Lesson plan copied to clipboard.', 'success');
+  });
+}
+
+function printPlan() {
+  const text = document.getElementById('outputArea').textContent;
+  const w = window.open('', '_blank');
+  w.document.write(`<html><head><title>BleuLearn Lesson Plan</title>
+  <style>body{font-family:Georgia,serif;padding:40px;max-width:800px;margin:0 auto;line-height:1.7;}
+  h1{color:#1B2A4A;border-bottom:3px solid #C9952A;padding-bottom:8px;}
+  pre{white-space:pre-wrap;font-family:Georgia,serif;}</style></head>
+  <body><h1>BleuLearn Lesson Plan</h1><pre>${text}</pre>
+  <p style="font-size:11px;color:#999;margin-top:40px;border-top:1px solid #ddd;padding-top:12px;">
+  © 2026 AvaBleu House HQ | BleuLearn Sovereign Curriculum | Teacher Use Only | Verify all archive URLs before teaching.</p>
+  </body></html>`);
+  w.document.close();
+  w.print();
+}
+
+function clearOutput() {
+  document.getElementById('outputContainer').style.display = 'none';
+  document.getElementById('outputArea').textContent = '';
+  document.getElementById('topic').value = '';
+  document.getElementById('focus').value = '';
+  document.getElementById('context').value = '';
+}
+</script>
+</body>
+</html>

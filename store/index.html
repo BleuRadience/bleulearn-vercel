@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Points Store</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;">
+      <div class="logo-icon">🛍️</div>
+      <div><h1>BLEULEARN</h1><p>Redeem Points</p></div>
+    </a>
+    <div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+  <p class="breadcrumb"><a href="/">Home</a> → Points Store</p>
+  <div class="hero">
+    <h1>🛍️ Points Bank Store</h1>
+    <p>Redeem your earned points for classroom rewards. Points are earned by completing documented lessons, worksheets, and arcade levels.</p>
+    <div style="margin-top:16px;"><span class="tag tag-gold">Your Balance: <span id="bal">0</span> ⭐</span></div>
+  </div>
+  <div class="grid-3" id="rewards"></div>
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BleuLearn</strong> — AvaBleu House HQ · 2026 ·
+    <a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+<script>
+document.getElementById('bal').textContent = BleuLearn.getPoints();
+const rewards = [
+  {n:"Homework Pass",c:50,i:"📓",desc:"Skip one homework assignment"},
+  {n:"Choose Your Seat",c:100,i:"💺",desc:"Pick any seat for one week"},
+  {n:"Lunch with Teacher",c:150,i:"🍕",desc:"Special lunch conversation"},
+  {n:"Extended Library Time",c:75,i:"📚",desc:"Extra 30 minutes in the library"},
+  {n:"Lead Harkness Circle",c:200,i:"🗣️",desc:"Facilitate the next discussion"},
+  {n:"Champion Badge",c:250,i:"🏅",desc:"Permanent badge on your profile"},
+  {n:"No Homework Weekend",c:400,i:"🎉",desc:"Full weekend pass"},
+  {n:"Curriculum Advisor Role",c:500,i:"👑",desc:"Help design a unit with your teacher"},
+];
+document.getElementById('rewards').innerHTML = rewards.map(r=>
+  `<div class="card card-interactive" onclick="redeem(${r.c},'${r.n}')">
+    <div style="font-size:48px;text-align:center;margin-bottom:12px;">${r.i}</div>
+    <h3 style="font-family:var(--font-display);text-align:center;">${r.n}</h3>
+    <p style="color:var(--gray);text-align:center;font-size:13px;">${r.desc}</p>
+    <div style="text-align:center;margin:12px 0;font-weight:700;color:var(--gold);">⭐ ${r.c} points</div>
+    <button class="btn-primary" style="width:100%;">Redeem</button>
+  </div>`).join('');
+function redeem(cost, name) {
+  if(BleuLearn.getPoints() >= cost) {
+    BleuLearn.addPoints(-cost, `Redeemed: ${name}`);
+    document.getElementById('bal').textContent = BleuLearn.getPoints();
+    BleuLearn.showNotification(`✅ Redeemed: ${name}!`, 'success');
+  } else {
+    BleuLearn.showNotification(`Need ${cost - BleuLearn.getPoints()} more points.`, 'warning');
+  }
+}
+</script>
+</body>
+</html>

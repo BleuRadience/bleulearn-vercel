@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BleuLearn - Bill to Law Tracker</title>
+    <link rel="stylesheet" href="/css/bleulearn.css">
+    <style>
+        @media print { body { margin: 0; } .no-print { display: none; } }
+        .worksheet { max-width: 8.5in; margin: 0 auto; background: white; padding: 0.5in; }
+        h1 { color: var(--bleu-deep); }
+        .flow { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0; }
+        .step { background: var(--bleu-deep); color: white; padding: 8px 12px; border-radius: 8px; font-size: 11px; text-align: center; }
+        .line { border-bottom: 1px solid #000; min-height: 25px; margin-bottom: 6px; }
+        .box { border: 1px solid #000; min-height: 80px; padding: 8px; margin-top: 8px; }
+        .footer { text-align: center; font-size: 10px; color: #999; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px; }
+        button { background: var(--gold); color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 8.5in; margin: 0 auto;">
+        <button class="no-print" onclick="window.print()">🖨️ Print Worksheet</button>
+        <div class="worksheet">
+            <h1>🏛️ BleuLearn Bill to Law Tracker</h1>
+            <p>Name: ______________________________ Date: _______________</p>
+            <div class="line">Bill Title/Number (from congress.gov or lis.virginia.gov): _______________________________________________</div>
+            <p style="margin-top:16px;"><strong>📝 What problem does this bill try to solve?</strong></p><div class="box"></div>
+            <p style="margin-top:16px;"><strong>How a Bill Becomes a Law:</strong></p>
+            <div class="flow">
+                <div class="step">1. Idea</div><div class="step">→</div>
+                <div class="step">2. Written</div><div class="step">→</div>
+                <div class="step">3. Committee</div><div class="step">→</div>
+                <div class="step">4. Debate</div><div class="step">→</div>
+                <div class="step">5. Vote</div><div class="step">→</div>
+                <div class="step">6. Other House</div><div class="step">→</div>
+                <div class="step">7. President/Governor</div><div class="step">→</div>
+                <div class="step">8. Law</div>
+            </div>
+            <p><strong>📍 Where is this bill right now?</strong> (Circle one)<br>
+            Idea / Written / In Committee / On Floor / Waiting for Vote / Passed one house / In other house / Signed / Became law / Died</p>
+            <p style="margin-top:16px;"><strong>🤝 Who supports this bill? Why?</strong></p><div class="box"></div>
+            <p style="margin-top:16px;"><strong>⚡ Who opposes this bill? Why?</strong></p><div class="box"></div>
+            <p style="margin-top:16px;"><strong>🗳️ My documented position (with evidence):</strong></p><div class="box"></div>
+            <p style="margin-top:16px;"><strong>⏸️ BleuLearn Pause: Why is it important for citizens to track documented legislation?</strong></p><div class="box"></div>
+            <div class="footer">BleuLearn Civics © AuraBleu House HQ | AuraBleu Academy | Unlimited copies permitted for classroom use</div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://bleulearn.vercel.app/</loc><priority>1.0</priority></url>
+  <url><loc>https://bleulearn.vercel.app/bleuhistory/</loc><priority>0.95</priority></url>
+  <url><loc>https://bleulearn.vercel.app/math/</loc><priority>0.9</priority></url>
+  <url><loc>https://bleulearn.vercel.app/science/</loc><priority>0.9</priority></url>
+  <url><loc>https://bleulearn.vercel.app/history/</loc><priority>0.9</priority></url>
+  <url><loc>https://bleulearn.vercel.app/language-arts/</loc><priority>0.9</priority></url>
+  <url><loc>https://bleulearn.vercel.app/financial-architecture/</loc><priority>0.9</priority></url>
+  <url><loc>https://bleulearn.vercel.app/indigenous/</loc><priority>0.9</priority></url>
+  <url><loc>https://bleulearn.vercel.app/black-world/</loc><priority>0.9</priority></url>
+  <url><loc>https://bleulearn.vercel.app/arabic/</loc><priority>0.8</priority></url>
+  <url><loc>https://bleulearn.vercel.app/french/</loc><priority>0.8</priority></url>
+  <url><loc>https://bleulearn.vercel.app/swahili/</loc><priority>0.8</priority></url>
+  <url><loc>https://bleulearn.vercel.app/yoruba/</loc><priority>0.8</priority></url>
+  <url><loc>https://bleulearn.vercel.app/spanish/</loc><priority>0.8</priority></url>
+  <url><loc>https://bleulearn.vercel.app/arcade/</loc><priority>0.85</priority></url>
+  <url><loc>https://bleulearn.vercel.app/games/</loc><priority>0.8</priority></url>
+  <url><loc>https://bleulearn.vercel.app/worksheets/</loc><priority>0.85</priority></url>
+  <url><loc>https://bleulearn.vercel.app/guides/</loc><priority>0.8</priority></url>
+  <url><loc>https://bleulearn.vercel.app/teacher/</loc><priority>0.8</priority></url>
+  <url><loc>https://bleulearn.vercel.app/waitinglist/</loc><priority>0.9</priority></url>
+  <url><loc>https://bleulearn.vercel.app/library/</loc><priority>0.75</priority></url>
+  <url><loc>https://bleulearn.vercel.app/fieldtrips/</loc><priority>0.75</priority></url>
+  <url><loc>https://bleulearn.vercel.app/inventions/</loc><priority>0.75</priority></url>
+  <url><loc>https://bleulearn.vercel.app/store/</loc><priority>0.7</priority></url>
+  <url><loc>https://bleulearn.vercel.app/badges/</loc><priority>0.7</priority></url>
+  <url><loc>https://bleulearn.vercel.app/capstone/</loc><priority>0.7</priority></url>
+  <url><loc>https://bleulearn.vercel.app/legal/terms.html</loc><priority>0.5</priority></url>
+  <url><loc>https://bleulearn.vercel.app/legal/privacy.html</loc><priority>0.5</priority></url>
+  <url><loc>https://bleulearn.vercel.app/college-career/</loc><priority>0.85</priority></url>
+  <url><loc>https://bleulearn.vercel.app/bleufield/</loc><priority>0.75</priority></url>
+  <url><loc>https://bleulearn.vercel.app/answer-keys/</loc><priority>0.85</priority></url>
+  <url><loc>https://bleulearn.vercel.app/lesson-plans/</loc><priority>0.85</priority></url>
+</urlset>

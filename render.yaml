@@ -1,0 +1,25 @@
+# Render Blueprint -- AvaBleu House HQ | BleuLearn Sovereign Curriculum | 2026
+# Optional: Render can also be configured entirely through its dashboard.
+# This file lets a fresh deploy auto-detect the web service and database
+# in one step. See: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: bleulearn-platform
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: bleulearn-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: NODE_ENV
+        value: production
+
+databases:
+  - name: bleulearn-db
+    plan: starter
+    databaseName: bleulearn

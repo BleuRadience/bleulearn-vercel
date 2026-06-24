@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BleuLearn - Writing Paper</title>
+    <link rel="stylesheet" href="/css/bleulearn.css">
+    <style>
+        @media print { body { margin: 0; } .no-print { display: none; } }
+        .worksheet { max-width: 8.5in; margin: 0 auto; background: white; padding: 0.5in; }
+        .worksheet-header { text-align: center; margin-bottom: 20px; }
+        .title-line { border-bottom: 1px solid #000; width: 60%; margin: 10px auto; }
+        .writing-lines { margin: 20px 0; }
+        .writing-line { border-bottom: 1px solid #ccc; height: 32px; margin-bottom: 4px; }
+        .drawing-box { border: 1px solid #ccc; min-height: 160px; margin: 20px 0; padding: 10px; text-align: center; color: #999; background: #FFF8E7; }
+        .footer { text-align: center; font-size: 10px; color: #999; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px; }
+        button { background: var(--gold); color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 8.5in; margin: 0 auto;">
+        <button class="no-print" onclick="window.print()">🖨️ Print Worksheet</button>
+        <div class="worksheet">
+            <div class="worksheet-header"><h1>✏️ BleuLearn Writing Paper</h1>
+            <p>Name: ______________________________ Date: _______________</p>
+            <div class="title-line"></div><p style="font-size:12px;color:#666;">Title</p></div>
+            <div class="drawing-box">✏️ Draw a picture to go with your writing</div>
+            <div class="writing-lines">
+                <div class="writing-line"></div><div class="writing-line"></div><div class="writing-line"></div>
+                <div class="writing-line"></div><div class="writing-line"></div><div class="writing-line"></div>
+                <div class="writing-line"></div><div class="writing-line"></div><div class="writing-line"></div>
+                <div class="writing-line"></div><div class="writing-line"></div><div class="writing-line"></div>
+            </div>
+            <div class="footer">BleuLearn Language Arts © AuraBleu House HQ | AuraBleu Academy | Unlimited copies permitted for classroom use</div>
+        </div>
+    </div>
+</body>
+</html>

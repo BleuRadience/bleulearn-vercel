@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BleuLearn - Primary Science Lab Sheet</title>
+    <link rel="stylesheet" href="/css/bleulearn.css">
+    <style>
+        @media print { body { margin: 0; } .no-print { display: none; } }
+        .worksheet { max-width: 8.5in; margin: 0 auto; background: white; padding: 0.5in; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .worksheet-header { text-align: center; border-bottom: 3px solid var(--gold); padding-bottom: 10px; margin-bottom: 20px; }
+        .worksheet-header h1 { color: var(--bleu-deep); font-size: 24px; }
+        .field { margin-bottom: 20px; }
+        .field label { font-weight: bold; color: var(--bleu-deep); display: block; margin-bottom: 8px; }
+        .line { border-bottom: 1px solid #000; min-height: 25px; width: 100%; margin-bottom: 4px; }
+        .box { border: 1px solid #000; min-height: 100px; width: 100%; }
+        .drawing-area { border: 2px dashed var(--gold); min-height: 150px; background: #FFF8E7; margin: 15px 0; display: flex; align-items: center; justify-content: center; color: #999; }
+        .scientist-box { background: var(--cream); padding: 15px; border-radius: 12px; margin: 20px 0; font-size: 12px; }
+        .footer { text-align: center; font-size: 10px; color: #999; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px; }
+        button { background: var(--gold); color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 8.5in; margin: 0 auto;">
+        <button class="no-print" onclick="window.print()">🖨️ Print Worksheet</button>
+        <div class="worksheet">
+            <div class="worksheet-header">
+                <h1>🔬 BleuLearn Science Lab Sheet</h1>
+                <p>Name: ______________________________ Date: _______________</p>
+                <p>Grade: _______  Unit: _______________  Lesson: _______________</p>
+            </div>
+            <div class="field"><label>🔍 QUESTION (What are we trying to find out?)</label><div class="line"></div></div>
+            <div class="field"><label>💭 PREDICTION (What do you think will happen? Why?)</label><div class="box"></div></div>
+            <div class="field"><label>📋 MATERIALS (What did we use?)</label><div class="line"></div><div class="line"></div><div class="line"></div></div>
+            <div class="field"><label>👀 OBSERVATION (What did you see, hear, smell, feel?)</label><div class="drawing-area">✏️ Draw what you saw here</div><div class="line"></div><div class="line"></div></div>
+            <div class="field"><label>🎯 CONCLUSION (What did you learn?)</label><div class="line"></div><div class="line"></div></div>
+            <div class="scientist-box">🌟 <strong>Scientist Spotlight</strong><br>Today's scientist: <u>_________________________________</u><br>They discovered: <u>_________________________________</u></div>
+            <div class="field"><label>⏸️ BLEULEARN PAUSE (How did you figure this out? What was hard?)</label><div class="box"></div></div>
+            <div class="footer">BleuLearn Science © AuraBleu House HQ | AuraBleu Academy | Unlimited copies permitted for classroom use</div>
+        </div>
+    </div>
+</body>
+</html>

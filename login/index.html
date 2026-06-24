@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Sign In</title>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <style>
+    .auth-wrap{max-width:420px;margin:60px auto;}
+    .auth-card{background:white;border-radius:16px;padding:32px;box-shadow:0 8px 24px rgba(0,0,0,0.08);}
+    .auth-tabs{display:flex;gap:8px;margin-bottom:20px;}
+    .auth-tab{flex:1;text-align:center;padding:10px;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;color:var(--gray);}
+    .auth-tab.active{background:var(--bleu-deep);color:var(--gold);}
+    .form-group{margin-bottom:14px;}
+    .form-group label{display:block;font-size:12px;font-weight:700;color:var(--bleu-deep);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;}
+    input,select{width:100%;padding:10px 12px;border:2px solid var(--light-gray);border-radius:10px;font-family:var(--font-body);font-size:14px;}
+    input:focus,select:focus{outline:none;border-color:var(--bleu-deep);}
+    .error-msg{background:#FFF0F0;color:#8B1A1A;padding:10px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none;}
+    .success-msg{background:#F0FFF4;color:#1A5E3A;padding:10px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none;}
+    #scholarFields{display:none;}
+  </style>
+</head>
+<body>
+<div class="container auth-wrap">
+  <div style="text-align:center;margin-bottom:20px;">
+    <div style="font-size:40px;">🔷</div>
+    <h1 style="font-family:var(--font-display);color:var(--bleu-deep);">BLEULEARN</h1>
+  </div>
+
+  <div class="auth-card">
+    <div class="auth-tabs">
+      <div class="auth-tab active" id="tabLogin" onclick="showTab('login')">Sign In</div>
+      <div class="auth-tab" id="tabSignup" onclick="showTab('signup')">Create Account</div>
+    </div>
+
+    <div class="error-msg" id="errorMsg"></div>
+    <div class="success-msg" id="successMsg"></div>
+
+    <!-- LOGIN FORM -->
+    <form id="loginForm" onsubmit="return handleLogin(event)">
+      <div class="form-group"><label>Email</label><input type="email" id="loginEmail" required></div>
+      <div class="form-group"><label>Password</label><input type="password" id="loginPassword" required></div>
+      <button class="btn-primary" type="submit" style="width:100%;">Sign In</button>
+    </form>
+
+    <!-- SIGNUP FORM -->
+    <form id="signupForm" style="display:none;" onsubmit="return handleSignup(event)">
+      <div class="form-group"><label>Full Name</label><input type="text" id="suName" required></div>
+      <div class="form-group"><label>Email</label><input type="email" id="suEmail" required></div>
+      <div class="form-group"><label>Password (8+ characters)</label><input type="password" id="suPassword" minlength="8" required></div>
+      <div class="form-group">
+        <label>I am a...</label>
+        <select id="suRole" onchange="toggleScholarFields()">
+          <option value="scholar">Scholar</option>
+          <option value="family">Family Member</option>
+          <option value="teacher">Teacher (requires invite code)</option>
+          <option value="admin">Administrator (requires setup secret or invite code)</option>
+        </select>
+      </div>
+      <div id="privilegedFields" style="display:none;">
+        <div class="form-group">
+          <label>Invite Code <span style="color:var(--gray);text-transform:none;font-weight:400;">(from your administrator)</span></label>
+          <input type="text" id="suInviteCode" placeholder="Leave blank only if using a setup secret below">
+        </div>
+        <div class="form-group">
+          <label>Initial Admin Setup Secret <span style="color:var(--gray);text-transform:none;font-weight:400;">(first admin only -- leave blank otherwise)</span></label>
+          <input type="text" id="suSetupSecret" placeholder="Only works if no admin account exists yet">
+        </div>
+      </div>
+      <div id="scholarFields">
+        <div class="form-group"><label>Grade Level</label><input type="text" id="suGrade" placeholder="e.g. Grade 5"></div>
+        <div class="form-group">
+          <label>House</label>
+          <select id="suHouse">
+            <option value="">Not assigned yet</option>
+            <option value="Harriet">House Harriet</option>
+            <option value="Mansa">House Mansa</option>
+            <option value="Esteban">House Esteban</option>
+            <option value="Pauli">House Pauli</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-primary" type="submit" style="width:100%;">Create Account</button>
+    </form>
+
+    <p style="font-size:11px;color:var(--gray);text-align:center;margin-top:16px;">
+      First time setting this up? See DEVELOPER_SETUP.md for the one-time steps required before sign-in works.
+    </p>
+  </div>
+</div>
+
+<script src="/js/bleulearn.js"></script>
+<script>
+function showTab(tab) {
+  document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
+  document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+  hideMessages();
+}
+function toggleScholarFields() {
+  const role = document.getElementById('suRole').value;
+  document.getElementById('scholarFields').style.display = role === 'scholar' ? 'block' : 'none';
+  document.getElementById('privilegedFields').style.display = (role === 'teacher' || role === 'admin') ? 'block' : 'none';
+}
+function hideMessages() {
+  document.getElementById('errorMsg').style.display = 'none';
+  document.getElementById('successMsg').style.display = 'none';
+}
+function showError(msg) {
+  hideMessages();
+  const el = document.getElementById('errorMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+function showSuccess(msg) {
+  hideMessages();
+  const el = document.getElementById('successMsg');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+async function handleLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const password = document.getElementById('loginPassword').value;
+  const result = await BleuLearn.loginUser(email, password);
+  if (result.ok) {
+    showSuccess('Signed in. Redirecting...');
+    setTimeout(() => { window.location.href = result.user.role === 'teacher' || result.user.role === 'admin' ? '/teacher/' : '/'; }, 800);
+  } else {
+    showError(result.error || 'Could not sign in.');
+  }
+  return false;
+}
+
+async function handleSignup(e) {
+  e.preventDefault();
+  const body = {
+    full_name: document.getElementById('suName').value,
+    email: document.getElementById('suEmail').value,
+    password: document.getElementById('suPassword').value,
+    role: document.getElementById('suRole').value,
+    grade_level: document.getElementById('suGrade').value || null,
+    house: document.getElementById('suHouse').value || null,
+    invite_code: document.getElementById('suInviteCode').value || undefined,
+    setup_secret: document.getElementById('suSetupSecret').value || undefined
+  };
+  try {
+    const res = await fetch('/api/auth/signup', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (!res.ok) { showError(data.error || 'Could not create account.'); return false; }
+    showSuccess('Account created. Redirecting...');
+    setTimeout(() => { window.location.href = (body.role === 'teacher' || body.role === 'admin') ? '/teacher/' : '/'; }, 800);
+  } catch (err) {
+    showError('Network error: ' + err.message);
+  }
+  return false;
+}
+</script>
+</body>
+</html>

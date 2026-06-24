@@ -1,0 +1,17 @@
+{
+  "name": "bleulearn-platform",
+  "version": "3.0.0",
+  "private": true,
+  "description": "BleuLearn Sovereign Curriculum -- AvaBleu House HQ. Platform-portable: runs on Render, Railway, Coolify, or any Node.js + Postgres host. No longer tied to Vercel.",
+  "type": "module",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "pg": "^8.12.0",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2"
+  }
+}

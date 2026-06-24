@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BleuLearn - Budget Sheet</title>
+    <link rel="stylesheet" href="/css/bleulearn.css">
+    <style>
+        @media print { body { margin: 0; } .no-print { display: none; } }
+        .worksheet { max-width: 8.5in; margin: 0 auto; background: white; padding: 0.5in; }
+        h1 { color: var(--bleu-deep); text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #000; padding: 10px; text-align: left; }
+        th { background: var(--gold); color: var(--bleu-deep); font-weight: bold; }
+        .total { background: var(--cream); font-weight: bold; }
+        .line { border-bottom: 1px solid #000; min-height: 25px; margin-bottom: 8px; }
+        .box { border: 1px solid #000; min-height: 60px; margin-top: 8px; }
+        .footer { text-align: center; font-size: 10px; color: #999; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px; }
+        button { background: var(--gold); color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 8.5in; margin: 0 auto;">
+        <button class="no-print" onclick="window.print()">🖨️ Print Worksheet</button>
+        <div class="worksheet">
+            <h1>💰 BleuLearn Budget Sheet</h1>
+            <p>Name: ______________________________ Date: _______________</p>
+            <p>Budget Period: _______________ (week / month / year)</p>
+            <h2 style="color:var(--bleu-deep);margin-top:16px;">INCOME (Money Coming In)</h2>
+            <table><tr><th>Source</th><th>Amount</th></tr>
+            <tr><td>Allowance / Chores</td><td>$________</td></tr>
+            <tr><td>Gifts</td><td>$________</td></tr>
+            <tr><td>Job / Business</td><td>$________</td></tr>
+            <tr class="total"><td><strong>TOTAL INCOME</strong></td><td><strong>$________</strong></td></tr></table>
+            <h2 style="color:var(--bleu-deep);">EXPENSES (Money Going Out)</h2>
+            <table><tr><th>Category</th><th>Amount</th></tr>
+            <tr><td>Saving (target: pay yourself first)</td><td>$________</td></tr>
+            <tr><td>Spending (snacks, entertainment)</td><td>$________</td></tr>
+            <tr><td>Giving / Community</td><td>$________</td></tr>
+            <tr class="total"><td><strong>TOTAL EXPENSES</strong></td><td><strong>$________</strong></td></tr></table>
+            <h2 style="color:var(--bleu-deep);">WHAT'S LEFT?</h2>
+            <table><tr><td>Total Income</td><td>$________</td></tr>
+            <tr><td>Minus Total Expenses</td><td>-$________</td></tr>
+            <tr class="total"><td><strong>Money Remaining</strong></td><td><strong>$________</strong></td></tr></table>
+            <p style="margin-top:16px;"><strong>🎯 My Savings Goal:</strong> I am saving for ______________________________</p>
+            <p style="margin-top:12px;"><strong>⏸️ BleuLearn Pause:</strong> What is one thing you learned about money today?</p><div class="box"></div>
+            <div class="footer">BleuLearn Financial Architecture © AuraBleu House HQ | AuraBleu Academy | Unlimited copies permitted for classroom use</div>
+        </div>
+    </div>
+</body>
+</html>

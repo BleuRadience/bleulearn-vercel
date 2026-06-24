@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BleuLearn - Map Activity</title>
+    <link rel="stylesheet" href="/css/bleulearn.css">
+    <style>
+        @media print { body { margin: 0; } .no-print { display: none; } }
+        .worksheet { max-width: 8.5in; margin: 0 auto; background: white; padding: 0.5in; }
+        h1 { color: var(--bleu-deep); }
+        .map-box { border: 2px solid var(--bleu-deep); min-height: 220px; margin: 20px 0; background: #EEF7FF; text-align: center; padding: 40px; color: #999; border-radius: 8px; }
+        .line { border-bottom: 1px solid #000; min-height: 25px; margin-bottom: 6px; }
+        .box { border: 1px solid #000; min-height: 70px; padding: 8px; margin-top: 8px; }
+        .legend { display: flex; gap: 20px; margin: 15px 0; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+        .legend-color { width: 20px; height: 20px; display: inline-block; border: 1px solid #333; }
+        .footer { text-align: center; font-size: 10px; color: #999; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px; }
+        button { background: var(--gold); color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 8.5in; margin: 0 auto;">
+        <button class="no-print" onclick="window.print()">🖨️ Print Worksheet</button>
+        <div class="worksheet">
+            <h1>🌍 BleuLearn Map Activity</h1>
+            <p>Name: ______________________________ Date: _______________</p>
+            <p>Location/Region: _______________________________________________</p>
+            <div class="map-box">✏️ Draw or trace your map here. Label every documented element.</div>
+            <div class="legend">
+                <div class="legend-item"><div class="legend-color" style="background:green;"></div> Land</div>
+                <div class="legend-item"><div class="legend-color" style="background:blue;"></div> Water</div>
+                <div class="legend-item"><div class="legend-color" style="background:#8B4513;"></div> Mountains</div>
+                <div class="legend-item"><div class="legend-color" style="background:yellow;"></div> City</div>
+                <div class="legend-item"><div class="legend-color" style="background:red;"></div> Capital</div>
+            </div>
+            <p><strong>📍 Label these on your map:</strong></p>
+            <div class="line">Continent/Country: _________________</div>
+            <div class="line">Major river or lake: _________________</div>
+            <div class="line">Capital city: _________________</div>
+            <div class="line">Indigenous nation(s) on this territory (source: native-land.ca): _________________</div>
+            <p style="margin-top:16px;"><strong>📝 Location Profile</strong></p>
+            <div class="line">Population: _________________________________</div>
+            <div class="line">Languages: _________________________________</div>
+            <div class="line">Currency: _________________________________</div>
+            <p style="margin-top:16px;"><strong>⏸️ BleuLearn Pause: How does geography affect how people live here?</strong></p><div class="box"></div>
+            <div class="footer">BleuLearn Geography © AuraBleu House HQ | AuraBleu Academy | Unlimited copies permitted for classroom use</div>
+        </div>
+    </div>
+</body>
+</html>

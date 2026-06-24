@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BleuLearn - Wellness Tracker</title>
+    <link rel="stylesheet" href="/css/bleulearn.css">
+    <style>
+        @media print { body { margin: 0; } .no-print { display: none; } }
+        .worksheet { max-width: 8.5in; margin: 0 auto; background: white; padding: 0.5in; }
+        h1 { color: var(--bleu-deep); }
+        .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin: 20px 0; }
+        .day { border: 1px solid #ddd; padding: 10px; text-align: center; border-radius: 6px; }
+        .day-header { background: var(--bleu-deep); color: white; }
+        .line { border-bottom: 1px solid #000; min-height: 25px; margin-bottom: 6px; }
+        .box { border: 1px solid #000; min-height: 80px; padding: 8px; margin-top: 8px; }
+        .footer { text-align: center; font-size: 10px; color: #999; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px; }
+        button { background: var(--gold); color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 8.5in; margin: 0 auto;">
+        <button class="no-print" onclick="window.print()">🖨️ Print Worksheet</button>
+        <div class="worksheet">
+            <h1>🧠 BleuLearn Wellness Tracker</h1>
+            <p>Name: ______________________________ Week of: _______________</p>
+            <div class="week-grid">
+                <div class="day day-header">Mon</div><div class="day day-header">Tue</div><div class="day day-header">Wed</div>
+                <div class="day day-header">Thu</div><div class="day day-header">Fri</div><div class="day day-header">Sat</div><div class="day day-header">Sun</div>
+                <div class="day">😊</div><div class="day">😊</div><div class="day">😊</div>
+                <div class="day">😊</div><div class="day">😊</div><div class="day">😊</div><div class="day">😊</div>
+            </div>
+            <p><strong>😴 SLEEP (hours per night)</strong></p>
+            <div class="line">Mon: ___  Tue: ___  Wed: ___  Thu: ___  Fri: ___  Sat: ___  Sun: ___</div>
+            <p style="font-size:12px;color:#666;">Aim for 9-11 hours (elementary), 8-10 (middle), 8-9 (high school)</p>
+            <p style="margin-top:12px;"><strong>🏃 MOVEMENT (minutes of active play/exercise)</strong></p>
+            <div class="line">Mon: ___  Tue: ___  Wed: ___  Thu: ___  Fri: ___  Sat: ___  Sun: ___</div>
+            <p style="font-size:12px;color:#666;">Aim for 60 minutes per day</p>
+            <p style="margin-top:12px;"><strong>💧 WATER (cups)</strong></p>
+            <div class="line">Mon: ___  Tue: ___  Wed: ___  Thu: ___  Fri: ___  Sat: ___  Sun: ___</div>
+            <p style="margin-top:12px;"><strong>❤️ HOW ARE YOU FEELING?</strong></p>
+            <div class="line">Mon: _________  Tue: _________  Wed: _________  Thu: _________  Fri: _________</div>
+            <p style="margin-top:12px;"><strong>🙏 ONE THING I'M GRATEFUL FOR</strong></p>
+            <div class="line">Mon: _________________________________</div>
+            <div class="line">Tue: _________________________________</div>
+            <div class="line">Wed: _________________________________</div>
+            <div class="line">Thu: _________________________________</div>
+            <div class="line">Fri: _________________________________</div>
+            <p style="margin-top:16px;"><strong>⏸️ BleuLearn Pause: What is one thing you can do this week to take care of your mind or body?</strong></p><div class="box"></div>
+            <div style="background:#FFEBEE;padding:12px;border-radius:8px;margin-top:16px;font-size:13px;">
+                📞 If you need help, talk to a trusted adult or call: <strong>988 (Suicide and Crisis Lifeline)</strong> | Text HOME to <strong>741741</strong>
+            </div>
+            <div class="footer">BleuLearn Health & Wellness © AuraBleu House HQ | AuraBleu Academy | Unlimited copies permitted for classroom use</div>
+        </div>
+    </div>
+</body>
+</html>

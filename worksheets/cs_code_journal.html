@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BleuLearn - Code Journal</title>
+    <link rel="stylesheet" href="/css/bleulearn.css">
+    <style>
+        @media print { body { margin: 0; } .no-print { display: none; } }
+        .worksheet { max-width: 8.5in; margin: 0 auto; background: white; padding: 0.5in; }
+        h1 { color: var(--bleu-deep); }
+        .code-block { background: var(--bleu-deep); color: var(--gold); padding: 10px 14px; font-family: monospace; margin: 10px 0; border-radius: 8px; font-size: 13px; }
+        .box { border: 1px solid #000; min-height: 100px; padding: 8px; font-family: monospace; }
+        .line { border-bottom: 1px solid #000; min-height: 25px; margin-bottom: 6px; }
+        .footer { text-align: center; font-size: 10px; color: #999; margin-top: 30px; border-top: 1px solid #ddd; padding-top: 10px; }
+        button { background: var(--gold); color: white; border: none; padding: 10px 20px; border-radius: 25px; cursor: pointer; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <div style="max-width: 8.5in; margin: 0 auto;">
+        <button class="no-print" onclick="window.print()">🖨️ Print Worksheet</button>
+        <div class="worksheet">
+            <h1>💻 BleuLearn Code Journal</h1>
+            <p>Name: ______________________________ Date: _______________</p>
+            <p>Language: _______________ (Scratch / Python / HTML / JavaScript / Other)</p>
+            <p style="margin-top:12px;"><strong>🎯 What are you trying to build or solve today?</strong></p><div class="box" style="margin-top:8px;"></div>
+            <div class="code-block">💡 MY CODE (write or paste key lines)</div><div class="box" style="min-height:160px;"></div>
+            <p style="margin-top:16px;"><strong>🐛 BUGS AND FIXES</strong></p>
+            <div class="line">Bug #1: _________________________________</div>
+            <div class="line">How I fixed it: _________________________________</div>
+            <div class="line">Bug #2: _________________________________</div>
+            <div class="line">How I fixed it: _________________________________</div>
+            <p style="margin-top:16px;"><strong>⏸️ BleuLearn Pause: What was the hardest part of coding today?</strong></p><div class="box" style="margin-top:8px;"></div>
+            <p style="margin-top:16px;"><strong>🌟 Computer Scientist Spotlight:</strong></p>
+            <div class="line">Name: _________________________________</div>
+            <div class="line">What they did: _________________________________</div>
+            <div class="footer">BleuLearn Computer Science © AuraBleu House HQ | AuraBleu Academy | Unlimited copies permitted for classroom use</div>
+        </div>
+    </div>
+</body>
+</html>
