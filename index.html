@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BleuLearn — Dashboard — AvaBleu House HQ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="/css/bleulearn.css">
+  <link rel="icon" href="/assets/favicon.ico">
+  
+</head>
+<body>
+<body>
+<div class="container">
+  <div class="main-header">
+    <div class="logo">
+      <div class="logo-icon">🔷</div>
+      <div><h1>BLEULEARN</h1><p>Sovereign Curriculum</p></div>
+    </div>
+    <a href="/admin-panel/" class="btn-secondary" style="text-decoration:none;margin-right:6px;">Admin</a><a href="/course/" class="btn-secondary" style="text-decoration:none;margin-right:6px;">Courses</a><a href="/gradebook/" class="btn-secondary" style="text-decoration:none;margin-right:10px;">Gradebook</a><a href="/login/" class="btn-secondary" style="text-decoration:none;margin-right:10px;">Sign In</a><div class="points-badge"><span>⭐</span><span class="points-display">⭐ 0</span></div>
+  </div>
+
+  <div class="hero">
+    <h1>Your Sovereign Education Starts Here</h1>
+    <p>23 documented curriculum strands. Every claim supported by a primary source accessible through a public archive. The document is the lesson. The document is the answer.</p>
+    <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;">
+      <button class="btn-gold" onclick="BleuLearn.goTo('/bleuhistory/')">📚 BleuHistory Book</button>
+      <button class="btn-outline" style="color:white;border-color:rgba(255,255,255,0.4);" onclick="BleuLearn.goTo('/arcade/')">🎮 Arcade</button>
+      <button class="btn-outline" style="color:white;border-color:rgba(255,255,255,0.4);" onclick="BleuLearn.goTo('/teacher/')">👩‍🏫 Teacher Hub</button>
+    </div>
+  </div>
+
+  <p class="section-sub">23 Curriculum Strands</p>
+  <p style="margin-bottom:20px;color:var(--gray);">AvaBleu House HQ | BleuLearn Sovereign Curriculum | Grades K-12</p>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;" id="strandGrid1">
+<div class="card card-interactive" onclick="BleuLearn.goTo('/math/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">📐</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Mathematics</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/science/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🔬</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Science</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/bleuhistory/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">📚</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">BleuHistory Book</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">Grades 5-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/language-arts/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">📖</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Language Arts</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/financial-architecture/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">💰</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Financial Architecture K-12</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/compsci/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">💻</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Computer Science</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/geography/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🌍</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Geography</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/civics/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🏛️</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Civics & Government</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/health/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🧠</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Health & Wellness</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/arabic/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🔤</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Arabic Language & Literacy</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/french/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🗣️</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">French Language & Literacy</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/swahili/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🌍</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Swahili Language & Literacy</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div></div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:40px;" id="strandGrid2">
+<div class="card card-interactive" onclick="BleuLearn.goTo('/yoruba/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🥁</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Yoruba Language & Literacy</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/spanish/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🌎</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Spanish Language & Literacy</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/indigenous/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🦅</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Indigenous Peoples Studies</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/black-world/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">✊</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Black World Studies</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/college-career/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🎓</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">College & Career Readiness</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">Grades 9-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/bleufield/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🧭</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">BleuField</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/cooperative-economics/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🏦</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Cooperative Economics</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">Grades 5-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/rhetoric/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">📝</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Rhetoric & Documented Argument</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/source-literacy/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🔍</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Primary Source Literacy</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/performing-arts/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🎭</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Performing Arts</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/visual-arts/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🎨</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Visual Arts</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/physical-ed/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🏃</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Physical Education & Movement</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div><div class="card card-interactive" onclick="BleuLearn.goTo('/civic-leadership/')">
+        <div style="font-size:36px;text-align:center;margin-bottom:10px;">🌟</div>
+        <h3 style="font-family:var(--font-display);font-size:15px;text-align:center;">Civic Leadership</h3>
+        <p style="font-size:11px;text-align:center;color:var(--gray);">K-12</p>
+      </div>
+  </div>
+
+  <p class="section-sub">Quick Links</p>
+  <div class="grid-4" style="margin-bottom:40px;">
+    <div class="card card-interactive" onclick="BleuLearn.goTo('/arcade/')"><div style="font-size:36px;text-align:center;">🎮</div><h3 style="text-align:center;font-family:var(--font-display);">Arcade</h3></div>
+    <div class="card card-interactive" onclick="BleuLearn.goTo('/worksheets/')"><div style="font-size:36px;text-align:center;">📋</div><h3 style="text-align:center;font-family:var(--font-display);">Worksheets</h3></div>
+    <div class="card card-interactive" onclick="BleuLearn.goTo('/teacher/')"><div style="font-size:36px;text-align:center;">👩‍🏫</div><h3 style="text-align:center;font-family:var(--font-display);">Teacher Hub</h3></div>
+    <div class="card card-interactive" onclick="BleuLearn.goTo('/assessment/')"><div style="font-size:36px;text-align:center;">📊</div><h3 style="text-align:center;font-family:var(--font-display);">Assessment</h3></div>
+  </div>
+
+  <div class="site-footer">
+    <strong style="color:var(--gold);font-family:var(--font-display)">BLEULEARN</strong> — AvaBleu House HQ · BleuLearn Sovereign Curriculum · 2026<br>
+    <small><a href="/legal/terms.html">Terms</a> · <a href="/legal/privacy.html">Privacy</a> · <a href="/legal/attribution.html">Attribution</a></small>
+  </div>
+</div>
+<script src="/js/bleulearn.js"></script>
+<script>
+@media (max-width:768px){#strandGrid1,#strandGrid2{grid-template-columns:repeat(2,1fr)!important}}
+</script>
+</body></html>

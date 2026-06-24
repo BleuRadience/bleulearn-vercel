@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BleuLearn — Gradebook</title>
+<link rel="stylesheet" href="/css/bleulearn.css">
+<style>
+  table{width:100%;border-collapse:collapse;margin-top:16px;}
+  th,td{padding:10px 14px;text-align:left;border-bottom:1px solid var(--light-gray);font-size:13px;}
+  th{background:var(--bleu-deep);color:var(--gold);font-size:11px;text-transform:uppercase;}
+  .grade-cell{font-weight:700;}
+  .final-grade{font-size:28px;font-weight:800;color:var(--bleu-deep);}
+  select{padding:8px 12px;border:2px solid var(--light-gray);border-radius:8px;margin-bottom:16px;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;"><div class="logo-icon">📊</div><div><h1>BLEULEARN</h1><p>Gradebook</p></div></a>
+    <a href="/course/" class="btn-secondary">📚 Courses</a>
+  </div>
+
+  <div id="loginGate" style="display:none;text-align:center;padding:60px;"><p style="color:var(--gray);">Sign in to view your gradebook. <a href="/login/">Sign in</a></p></div>
+
+  <div id="gradebookView">
+    <label style="font-size:13px;font-weight:700;color:var(--bleu-deep);">Course:</label>
+    <select id="courseSelect" onchange="loadGradebook()"></select>
+
+    <div id="scholarView" style="display:none;">
+      <div class="card" style="text-align:center;">
+        <p style="color:var(--gray);font-size:13px;">Final Grade</p>
+        <div class="final-grade" id="finalGradeDisplay">—</div>
+      </div>
+      <table>
+        <thead><tr><th>Item</th><th>Points Possible</th><th>Earned</th><th>Feedback</th></tr></thead>
+        <tbody id="scholarItemsBody"></tbody>
+      </table>
+    </div>
+
+    <div id="teacherView" style="display:none;">
+      <table>
+        <thead><tr><th>Scholar</th><th>Final Grade</th></tr></thead>
+        <tbody id="classMatrixBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script src="/js/bleulearn.js"></script>
+<script>
+let currentUser = null;
+
+async function init() {
+  currentUser = await BleuLearn.getCurrentUser();
+  if (!currentUser) { document.getElementById('loginGate').style.display = 'block'; document.getElementById('gradebookView').style.display = 'none'; return; }
+  const res = await fetch('/api/courses');
+  const data = await res.json();
+  const sel = document.getElementById('courseSelect');
+  sel.innerHTML = (data.courses || []).map(c => `<option value="${Number(c.id)}">${BleuLearn.escapeHtml(c.title)}</option>`).join('');
+  if (data.courses && data.courses.length > 0) loadGradebook();
+}
+
+async function loadGradebook() {
+  const courseId = document.getElementById('courseSelect').value;
+  if (!courseId) return;
+  const res = await fetch('/api/gradebook?course_id=' + courseId);
+  const data = await res.json();
+
+  if (currentUser.role === 'scholar') {
+    document.getElementById('scholarView').style.display = 'block';
+    document.getElementById('teacherView').style.display = 'none';
+    document.getElementById('finalGradeDisplay').textContent = data.finalGrade !== null ? data.finalGrade + '%' : 'Not yet calculated';
+    document.getElementById('scholarItemsBody').innerHTML = (data.items || []).map(i => `
+      <tr><td>${BleuLearn.escapeHtml(i.item_title)}</td><td>${Number(i.points_possible)}</td>
+      <td class="grade-cell">${i.points_earned !== null ? Number(i.points_earned) : '—'}</td>
+      <td style="font-size:12px;color:var(--gray);">${BleuLearn.escapeHtml(i.feedback)}</td></tr>
+    `).join('') || '<tr><td colspan="4" style="color:var(--gray);">No grade items yet.</td></tr>';
+  } else {
+    document.getElementById('scholarView').style.display = 'none';
+    document.getElementById('teacherView').style.display = 'block';
+    document.getElementById('classMatrixBody').innerHTML = (data.matrix || []).map(m => `
+      <tr><td>${BleuLearn.escapeHtml(m.full_name)}</td><td class="grade-cell">${m.finalGrade !== null ? Number(m.finalGrade) + '%' : '—'}</td></tr>
+    `).join('') || '<tr><td colspan="2" style="color:var(--gray);">No scholars enrolled yet.</td></tr>';
+  }
+}
+
+init();
+</script>
+</body>
+</html>
