@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BleuLearn — The Sorting Ceremony</title>
+<link rel="stylesheet" href="/css/bleulearn.css">
+<style>
+  body { background: #0d1424; min-height: 100vh; }
+  .sorting-stage { max-width: 720px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+  .torch-title { color: #C9952A; font-family: var(--font-display); font-size: 14px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; opacity: 0.8; }
+  .ceremony-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(201,149,42,0.3); border-radius: 20px; padding: 36px 28px; backdrop-filter: blur(6px); }
+  .question-text { color: #fff; font-family: var(--font-display); font-size: 24px; line-height: 1.4; margin-bottom: 28px; }
+  .answer-btn { display: block; width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: #fff; padding: 16px 20px; border-radius: 14px; margin-bottom: 12px; font-size: 16px; text-align: left; cursor: pointer; transition: all 0.2s; }
+  .answer-btn:hover { background: rgba(201,149,42,0.2); border-color: #C9952A; transform: translateX(4px); }
+  .progress-dots { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.2); }
+  .dot.active { background: #C9952A; }
+  .dot.done { background: rgba(201,149,42,0.5); }
+
+  #revealScreen { display: none; }
+  .reveal-flash { animation: flashIn 1.8s ease forwards; }
+  @keyframes flashIn { 0% { opacity: 0; transform: scale(0.85); } 60% { opacity: 1; transform: scale(1.03); } 100% { opacity: 1; transform: scale(1); } }
+  .house-crest { font-size: 88px; margin-bottom: 8px; animation: crestPulse 2s ease infinite; }
+  @keyframes crestPulse { 0%,100% { filter: drop-shadow(0 0 0px currentColor); } 50% { filter: drop-shadow(0 0 24px currentColor); } }
+  .house-name { font-family: var(--font-display); font-size: 42px; font-weight: 800; margin: 4px 0 14px; }
+  .house-motto { font-size: 17px; font-style: italic; opacity: 0.9; max-width: 480px; margin: 0 auto 18px; line-height: 1.6; }
+  .house-specialty { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; opacity: 0.7; margin-bottom: 28px; }
+  .surge-line { font-size: 13px; color: #C9952A; letter-spacing: 2px; text-transform: uppercase; margin-top: 24px; opacity: 0; animation: surgeIn 1s ease forwards 1.6s; }
+  @keyframes surgeIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+<div class="sorting-stage">
+  <p class="torch-title">🔥 The Sorting Ceremony 🔥</p>
+
+  <div id="loginGate" style="display:none;color:#fff;padding:60px 0;">
+    <p>You need to <a href="/login/" style="color:#C9952A;">sign in</a> first.</p>
+  </div>
+
+  <div id="alreadySorted" style="display:none;color:#fff;padding:40px 0;">
+    <p style="font-size:18px;">You have already been sorted into <strong id="existingHouseName" style="color:#C9952A;"></strong>.</p>
+    <p style="opacity:0.7;font-size:14px;margin-top:12px;">The Ceremony happens once. Visit the <a href="/house-cup/" style="color:#C9952A;">House Cup</a> to see how your house is doing.</p>
+  </div>
+
+  <div id="quizScreen">
+    <div class="progress-dots" id="progressDots"></div>
+    <div class="ceremony-card">
+      <p class="question-text" id="questionText"></p>
+      <div id="answerButtons"></div>
+    </div>
+  </div>
+
+  <div id="revealScreen">
+    <div class="reveal-flash" id="revealCard">
+      <div class="house-crest" id="houseCrest"></div>
+      <div class="house-name" id="houseName"></div>
+      <p class="house-motto" id="houseMotto"></p>
+      <p class="house-specialty" id="houseSpecialty"></p>
+      <div class="surge-line">The document holds. The document holds. The document holds.</div>
+      <button class="btn-primary" style="margin-top:24px;" onclick="window.location.href='/house-cup/'">See the House Cup →</button>
+    </div>
+  </div>
+</div>
+
+<script src="/js/bleulearn.js"></script>
+<script>
+const QUESTIONS = [
+  {
+    text: "A classmate is being treated unfairly by the rules. What do you do?",
+    answers: [
+      { text: "Find a way to get them out of that situation right now, even if it's risky.", house: "Harriet" },
+      { text: "Help them build a plan so they're never in that position again.", house: "Mansa" },
+      { text: "Find someone who's dealt with this before and learn from them.", house: "Esteban" },
+      { text: "Find out exactly what rule is being broken and write it down.", house: "Pauli" }
+    ]
+  },
+  {
+    text: "Your favorite kind of project is one where you...",
+    answers: [
+      { text: "Uncover something true that someone tried to hide.", house: "Harriet" },
+      { text: "Build something that grows in value over time.", house: "Mansa" },
+      { text: "Go somewhere or learn something totally new.", house: "Esteban" },
+      { text: "Argue a case and win people over with evidence.", house: "Pauli" }
+    ]
+  },
+  {
+    text: "You find a chest of old letters in an attic. You...",
+    answers: [
+      { text: "Read every one — they might be proof of something important.", house: "Harriet" },
+      { text: "Wonder what they're worth and who should have them.", house: "Mansa" },
+      { text: "Try to figure out what language they're written in.", house: "Esteban" },
+      { text: "Organize them and piece together the timeline.", house: "Pauli" }
+    ]
+  },
+  {
+    text: "Pick the goal you'd be proudest of accomplishing:",
+    answers: [
+      { text: "Helping someone get free.", house: "Harriet" },
+      { text: "Building something that takes care of my whole family for generations.", house: "Mansa" },
+      { text: "Being the first person to do something.", house: "Esteban" },
+      { text: "Changing an unfair law.", house: "Pauli" }
+    ]
+  },
+  {
+    text: "When you disagree with someone, you usually...",
+    answers: [
+      { text: "Trust my gut and act.", house: "Harriet" },
+      { text: "Think about the long-term cost of being wrong.", house: "Mansa" },
+      { text: "Try to see it from a totally different angle.", house: "Esteban" },
+      { text: "Build the strongest possible argument with evidence.", house: "Pauli" }
+    ]
+  }
+];
+
+const HOUSE_DATA = {
+  Harriet: { crest: "🌲", color: "#1A5E3A", motto: "I never ran my train off the track and I never lost a passenger.", specialty: "BleuHistory & Primary Source Literacy" },
+  Mansa:   { crest: "👑", color: "#C9952A", motto: "Knowledge is the most powerful currency.", specialty: "Financial Architecture & Cooperative Economics" },
+  Esteban: { crest: "🧭", color: "#2A7F6F", motto: "The first crossing was ours.", specialty: "Five Languages & Geography" },
+  Pauli:   { crest: "⚖️", color: "#1B2A4A", motto: "I intend to destroy segregation by positive and embracing methods.", specialty: "Civics, Rhetoric & Law" }
+};
+
+let currentQuestion = 0;
+const tally = { Harriet: 0, Mansa: 0, Esteban: 0, Pauli: 0 };
+
+async function init() {
+  const user = await BleuLearn.getCurrentUser();
+  if (!user) { document.getElementById('loginGate').style.display = 'block'; document.getElementById('quizScreen').style.display = 'none'; return; }
+
+  const res = await fetch('/api/sorting');
+  const data = await res.json();
+  if (data.house) {
+    document.getElementById('quizScreen').style.display = 'none';
+    document.getElementById('alreadySorted').style.display = 'block';
+    document.getElementById('existingHouseName').textContent = 'House ' + data.house;
+    return;
+  }
+  renderDots();
+  renderQuestion();
+}
+
+function renderDots() {
+  const dots = document.getElementById('progressDots');
+  dots.innerHTML = QUESTIONS.map((_, i) => `<div class="dot ${i === currentQuestion ? 'active' : i < currentQuestion ? 'done' : ''}"></div>`).join('');
+}
+
+function renderQuestion() {
+  const q = QUESTIONS[currentQuestion];
+  document.getElementById('questionText').textContent = q.text;
+  document.getElementById('answerButtons').innerHTML = q.answers.map((a, i) =>
+    `<button class="answer-btn" onclick="selectAnswer('${a.house}')">${BleuLearn.escapeHtml(a.text)}</button>`
+  ).join('');
+}
+
+function selectAnswer(house) {
+  tally[house]++;
+  currentQuestion++;
+  if (currentQuestion < QUESTIONS.length) {
+    renderDots();
+    renderQuestion();
+  } else {
+    finishCeremony();
+  }
+}
+
+async function finishCeremony() {
+  const res = await fetch('/api/sorting', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ tally })
+  });
+  const data = await res.json();
+  const house = data.house;
+  const info = HOUSE_DATA[house];
+
+  document.getElementById('quizScreen').style.display = 'none';
+  document.getElementById('revealScreen').style.display = 'block';
+  document.getElementById('houseCrest').textContent = info.crest;
+  document.getElementById('houseCrest').style.color = info.color;
+  document.getElementById('houseName').textContent = 'House ' + house;
+  document.getElementById('houseName').style.color = info.color;
+  document.getElementById('houseMotto').textContent = '"' + info.motto + '"';
+  document.getElementById('houseSpecialty').textContent = info.specialty;
+}
+
+init();
+</script>
+</body>
+</html>

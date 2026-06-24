@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BleuLearn — The House Cup</title>
+<link rel="stylesheet" href="/css/bleulearn.css">
+<style>
+  .cup-header { text-align: center; padding: 30px 0 10px; }
+  .cup-trophy { font-size: 56px; }
+  .house-row { display: flex; align-items: center; gap: 18px; background: white; border-radius: 18px; padding: 20px 24px; margin-bottom: 14px; box-shadow: 0 4px 14px rgba(0,0,0,0.06); border-left: 8px solid; transition: transform 0.2s; }
+  .house-row.rank-1 { transform: scale(1.02); box-shadow: 0 8px 24px rgba(201,149,42,0.25); }
+  .rank-badge { font-size: 28px; font-weight: 800; width: 48px; text-align: center; }
+  .house-row-info { flex: 1; }
+  .house-row-name { font-family: var(--font-display); font-size: 22px; font-weight: 800; }
+  .house-row-motto { font-size: 13px; color: var(--gray); font-style: italic; margin-top: 2px; }
+  .house-row-specialty { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--gray); margin-top: 4px; }
+  .house-points { font-size: 32px; font-weight: 800; text-align: right; min-width: 100px; }
+  .house-points-label { font-size: 11px; text-transform: uppercase; color: var(--gray); text-align: right; }
+  .crown { display: inline-block; animation: bob 2s ease infinite; }
+  @keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-4px); } }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="main-header">
+    <a href="/" class="logo" style="text-decoration:none;"><div class="logo-icon">🏆</div><div><h1>BLEULEARN</h1><p>The House Cup</p></div></a>
+    <a href="/sorting/" class="btn-secondary">Not sorted yet?</a>
+  </div>
+
+  <div id="loginGate" style="display:none;text-align:center;padding:60px;"><p style="color:var(--gray);">Sign in to see the House Cup. <a href="/login/">Sign in</a></p></div>
+
+  <div id="cupContent">
+    <div class="cup-header">
+      <div class="cup-trophy">🏆</div>
+      <p style="color:var(--gray);font-size:14px;">Points are never subtracted, only earned. Updated live.</p>
+    </div>
+    <div id="standingsList"></div>
+  </div>
+</div>
+
+<script src="/js/bleulearn.js"></script>
+<script>
+async function init() {
+  const user = await BleuLearn.getCurrentUser();
+  if (!user) { document.getElementById('loginGate').style.display = 'block'; document.getElementById('cupContent').style.display = 'none'; return; }
+
+  const res = await fetch('/api/house-cup');
+  const data = await res.json();
+  const list = document.getElementById('standingsList');
+  list.innerHTML = data.standings.map((s, i) => `
+    <div class="house-row rank-${i+1}" style="border-left-color:${s.color};">
+      <div class="rank-badge" style="color:${s.color};">${i === 0 ? '<span class="crown">👑</span>' : '#' + (i+1)}</div>
+      <div class="house-row-info">
+        <div class="house-row-name" style="color:${s.color};">House ${BleuLearn.escapeHtml(s.house)}</div>
+        <div class="house-row-motto">"${BleuLearn.escapeHtml(s.motto)}"</div>
+        <div class="house-row-specialty">${BleuLearn.escapeHtml(s.specialty)} · ${Number(s.scholarCount)} scholars</div>
+      </div>
+      <div>
+        <div class="house-points" style="color:${s.color};">${Number(s.totalPoints).toLocaleString()}</div>
+        <div class="house-points-label">points</div>
+      </div>
+    </div>
+  `).join('');
+}
+init();
+</script>
+</body>
+</html>
