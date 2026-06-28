@@ -643,3 +643,48 @@ CREATE INDEX IF NOT EXISTS idx_ai_review_status ON ai_assessment_reviews(status)
 -- This is a best-effort safety net only, for the same documented reason.
 ALTER TABLE invite_codes DROP CONSTRAINT IF EXISTS invite_codes_role_check;
 ALTER TABLE invite_codes ADD CONSTRAINT invite_codes_role_check_v2 CHECK (role IN ('teacher','admin','case_manager'));
+
+-- ============================================================================
+-- REAL TRACKING FOR LIBRARY + FIELD TRIPS, AND LIGHTWEIGHT TEACHER-STUDENT
+-- ANNOUNCEMENTS -- closing the gap where good content existed but ran on
+-- the cosmetic localStorage system instead of the real backend.
+-- AvaBleu House HQ | BleuLearn Sovereign Curriculum | 2026
+-- ============================================================================
+
+-- Real, server-side record of a book marked read. Awards real points via
+-- points_ledger (not cosmetic) at the moment it's recorded.
+CREATE TABLE IF NOT EXISTS books_read (
+  id              SERIAL PRIMARY KEY,
+  scholar_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  book_title      TEXT NOT NULL,
+  book_author     TEXT,
+  points_awarded  INTEGER NOT NULL,
+  read_at         TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE (scholar_user_id, book_title)
+);
+
+-- Same pattern for field trip visits.
+CREATE TABLE IF NOT EXISTS field_trip_visits (
+  id              SERIAL PRIMARY KEY,
+  scholar_user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  trip_name       TEXT NOT NULL,
+  strand          TEXT,
+  points_awarded  INTEGER NOT NULL,
+  visited_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+  UNIQUE (scholar_user_id, trip_name)
+);
+
+-- Lightweight teacher -> course announcements. No external chat service,
+-- no video, no separate server -- this is a real feature living in the
+-- same database and API as everything else, because text-based
+-- teacher-student communication does not need heavy infrastructure to be
+-- real. Visible to every scholar enrolled in the course.
+CREATE TABLE IF NOT EXISTS announcements (
+  id          SERIAL PRIMARY KEY,
+  course_id   INTEGER NOT NULL REFERENCES courses(id) ON DELETE CASCADE,
+  title       TEXT NOT NULL,
+  body        TEXT NOT NULL,
+  posted_by   INTEGER REFERENCES users(id),
+  created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_announcements_course ON announcements(course_id, created_at);
